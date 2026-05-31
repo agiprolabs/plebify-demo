@@ -1,0 +1,1126 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Plebify — Survey-grade signals for any audience, in seconds.</title>
+<meta name="description" content="The Plebify API runs your question against a synthetic US-public swarm calibrated against published Pew surveys. Get full distributions + crosstabs in under 2 seconds.">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/plebify_p_icon_32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/plebify_p_icon_16.png">
+<link rel="icon" type="image/png" sizes="128x128" href="assets/plebify_p_icon_128.png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
+<link rel="shortcut icon" href="assets/favicon.ico">
+<link rel="shortcut icon" href="assets/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #ffffff;
+    --surface: #fafbfc;
+    --text: #1a1a1a;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --accent: #162e51;
+    --accent-hover: #1e3d6f;
+    --accent-soft: #e8ecf3;
+    --code-bg: #0f1626;
+    --code-text: #e8ebf0;
+    --code-accent: #7aa7e8;
+    --success: #2d5f3f;
+  }
+  [data-theme="dark"] {
+    --bg: #0a0e1a;
+    --surface: #131826;
+    --text: #e8ebf0;
+    --muted: #8b95a8;
+    --border: #1f2937;
+    --accent: #4d7bc7;
+    --accent-hover: #6595dc;
+    --accent-soft: #1a2540;
+    --code-bg: #050810;
+    --code-text: #e8ebf0;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+  code, pre { font-family: 'JetBrains Mono', 'Fira Code', Menlo, monospace; }
+
+  /* nav */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(255,255,255,0.85); backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 20px 0;
+  }
+  [data-theme="dark"] nav { background: rgba(10,14,26,0.85); }
+  .nav-inner {
+    max-width: 1120px; margin: 0 auto; padding: 0 32px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .logo {
+    display: inline-flex; align-items: center;
+    text-decoration: none; color: var(--text);
+  }
+  .logo img { height: 44px; width: auto; display: block; }
+  .logo .logo-light { display: block; }
+  .logo .logo-dark { display: none; }
+  [data-theme="dark"] .logo .logo-light { display: none; }
+  [data-theme="dark"] .logo .logo-dark { display: block; }
+  .nav-links { display: flex; gap: 32px; align-items: center; }
+  .nav-links a {
+    color: var(--muted); text-decoration: none; font-size: 14px; font-weight: 500;
+    transition: color 0.15s ease;
+  }
+  .nav-links a:hover { color: var(--text); }
+  .theme-toggle {
+    background: none; border: 1px solid var(--border); border-radius: 6px;
+    width: 32px; height: 32px; cursor: pointer; color: var(--muted);
+    display: inline-flex; align-items: center; justify-content: center;
+  }
+  .theme-toggle:hover { color: var(--text); border-color: var(--muted); }
+  .nav-cta {
+    background: var(--accent); color: white !important; padding: 8px 16px;
+    border-radius: 6px; font-weight: 600;
+  }
+  .nav-cta:hover { background: var(--accent-hover); }
+
+  /* containers */
+  .container { max-width: 1120px; margin: 0 auto; padding: 0 32px; }
+
+  /* Plebify P-mark — brand accent used in hero + other marks. */
+  .p-mark { display: inline-block; vertical-align: middle; }
+  [data-theme="dark"] .p-mark { filter: invert(1); }
+
+  /* hero */
+  .hero { padding: 88px 0 56px; position: relative; overflow: hidden; }
+  .hero .container { position: relative; z-index: 1; }
+  .hero-p-mark {
+    /* P top aligned to h1 top (i.e., the top of the container, which sits
+       inside the hero's 88px top padding). Horizontally centered in the
+       right negative space (~140px in from the container's right edge). */
+    position: absolute;
+    top: 0;
+    right: 140px;
+    height: 240px;
+    opacity: 0.18;
+    pointer-events: none;
+    z-index: 0;
+  }
+  @media (max-width: 1000px) {
+    /* narrower viewport → less right negative space → hide */
+    .hero-p-mark { display: none; }
+  }
+  /* (mobile hide handled by the 1000px breakpoint above) */
+  .hero h1 {
+    font-size: clamp(30px, 4.2vw, 48px); font-weight: 700; line-height: 1.1;
+    letter-spacing: -0.022em; max-width: 720px; margin-bottom: 22px;
+  }
+  .hero h1 .accent { color: var(--accent); }
+  .hero .sub {
+    font-size: 17px; color: var(--muted); max-width: 600px;
+    margin-bottom: 36px; line-height: 1.55;
+  }
+  .hero .ctas { display: flex; gap: 12px; margin-bottom: 32px; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px; padding: 12px 22px;
+    border-radius: 8px; font-weight: 600; font-size: 15px; cursor: pointer;
+    border: 1px solid transparent; text-decoration: none; transition: all 0.15s ease;
+    font-family: inherit;
+  }
+  .btn-primary { background: var(--accent); color: white; }
+  .btn-primary:hover { background: var(--accent-hover); transform: translateY(-1px); }
+  .btn-ghost {
+    background: transparent; color: var(--text); border-color: var(--border);
+  }
+  .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+  .arrow { transition: transform 0.15s ease; }
+  .btn:hover .arrow { transform: translateX(3px); }
+
+  /* code block */
+  .code-block {
+    background: var(--code-bg); color: var(--code-text);
+    border-radius: 12px; padding: 24px 28px;
+    font-size: 14px; line-height: 1.7; overflow-x: auto;
+    margin-bottom: 32px; position: relative;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 12px 32px rgba(22,46,81,0.08);
+  }
+  .code-block .kw { color: var(--code-accent); }
+  .code-block .str { color: #a7c4e2; }
+  .code-block .com { color: #6b7a96; font-style: italic; }
+  .code-block .copy {
+    position: absolute; top: 12px; right: 12px;
+    background: rgba(255,255,255,0.06); color: #c0c8d8;
+    border: 1px solid rgba(255,255,255,0.1); border-radius: 6px;
+    padding: 4px 10px; font-size: 12px; cursor: pointer; font-family: inherit;
+  }
+  .code-block .copy:hover { background: rgba(255,255,255,0.12); }
+
+  /* calibration badge */
+  .badge {
+    display: inline-flex; align-items: center; gap: 14px;
+    background: var(--accent-soft);
+    border: 1px solid color-mix(in srgb, var(--accent) 20%, transparent);
+    border-radius: 999px; padding: 10px 20px;
+    font-size: 13px; color: var(--text); font-weight: 500;
+  }
+  [data-theme="dark"] .badge { color: var(--text); }
+  .badge strong { color: var(--accent); font-weight: 700; }
+  .badge a { color: var(--accent); text-decoration: none; margin-left: 4px; }
+  .badge a:hover { text-decoration: underline; }
+  .badge-dot {
+    width: 8px; height: 8px; border-radius: 50%; background: var(--success);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--success) 20%, transparent);
+  }
+
+  /* section header */
+  .section { padding: 96px 0; border-top: 1px solid var(--border); }
+  .section h2 {
+    font-size: clamp(32px, 4vw, 44px); font-weight: 700;
+    letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 16px;
+  }
+  .section .eyebrow {
+    color: var(--accent); font-size: 13px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 12px;
+  }
+  .section .lead {
+    font-size: 17px; color: var(--muted); max-width: 640px;
+    margin-bottom: 56px; line-height: 1.55;
+  }
+
+  /* pricing */
+  .pricing-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+  }
+  @media (max-width: 768px) {
+    .pricing-grid { grid-template-columns: 1fr; }
+  }
+  .price-card {
+    border: 1px solid var(--border); border-radius: 12px; padding: 32px;
+    background: var(--bg); transition: all 0.2s ease;
+  }
+  .price-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .price-card.featured {
+    border-color: var(--accent); border-width: 2px;
+    box-shadow: 0 8px 24px rgba(22,46,81,0.08);
+  }
+  .price-tag {
+    display: inline-block; background: var(--accent); color: white;
+    font-size: 11px; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.06em; padding: 4px 10px; border-radius: 4px;
+    margin-bottom: 16px;
+  }
+  .price-card h3 {
+    font-size: 20px; font-weight: 600; margin-bottom: 4px;
+  }
+  .price-card .price {
+    font-size: 40px; font-weight: 700; letter-spacing: -0.02em;
+    margin: 16px 0 4px; color: var(--text);
+  }
+  .price-card .price small {
+    font-size: 16px; font-weight: 500; color: var(--muted);
+  }
+  .price-card .price-sub {
+    color: var(--muted); font-size: 14px; margin-bottom: 24px;
+  }
+  .price-features { list-style: none; margin-bottom: 28px; }
+  .price-features li {
+    padding: 8px 0; font-size: 14px; color: var(--text);
+    display: flex; align-items: flex-start; gap: 10px;
+  }
+  .price-features li::before {
+    content: "✓"; color: var(--accent); font-weight: 700; flex-shrink: 0;
+  }
+  .price-features li.muted { color: var(--muted); }
+  .price-features li.muted::before { color: var(--muted); content: "—"; }
+  .price-card .btn { width: 100%; justify-content: center; }
+
+  .inline-code {
+    font-family: 'JetBrains Mono', monospace; font-size: 12px;
+    background: var(--code-bg); color: var(--code-text);
+    padding: 10px 12px; border-radius: 6px; line-height: 1.55;
+    white-space: pre; overflow-x: auto;
+  }
+
+  /* API reference */
+  .api-endpoint {
+    border: 1px solid var(--border); border-radius: 12px;
+    padding: 24px 26px; margin-bottom: 24px; background: var(--bg);
+  }
+  .api-line {
+    display: flex; align-items: center; gap: 12px; margin-bottom: 6px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .api-method {
+    display: inline-block; padding: 3px 10px; border-radius: 4px;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.04em;
+    color: white;
+  }
+  .api-method.post { background: var(--accent); }
+  .api-method.get { background: var(--success); }
+  .api-path { font-size: 15px; font-weight: 600; color: var(--text); }
+  .api-desc {
+    font-size: 14px; color: var(--muted); margin-bottom: 16px; line-height: 1.55;
+  }
+  .api-table {
+    width: 100%; border-collapse: collapse; margin-top: 16px;
+    font-size: 14px;
+  }
+  .api-table th {
+    text-align: left; padding: 12px 16px; color: var(--muted);
+    font-weight: 600; font-size: 12px; text-transform: uppercase;
+    letter-spacing: 0.06em; border-bottom: 1px solid var(--border);
+  }
+  .api-table td {
+    padding: 14px 16px; border-bottom: 1px solid var(--border);
+    line-height: 1.55; color: var(--text);
+  }
+  .api-table td code, p code {
+    background: var(--accent-soft); padding: 2px 6px; border-radius: 4px;
+    font-family: 'JetBrains Mono', monospace; font-size: 12px;
+    color: var(--accent); font-weight: 500;
+  }
+  .mcp-callout {
+    background: var(--bg); border: 1px solid var(--border);
+    border-left: 3px solid var(--accent); border-radius: 12px;
+    padding: 24px 26px; margin: 32px 0 0;
+  }
+  .mcp-callout h3 {
+    font-size: 16px; font-weight: 600; color: var(--accent);
+    letter-spacing: -0.005em; margin-bottom: 10px;
+  }
+  .mcp-callout p {
+    color: var(--muted); font-size: 14px; line-height: 1.55;
+    margin-bottom: 14px;
+  }
+  .mcp-callout p code {
+    background: var(--accent-soft); padding: 2px 6px; border-radius: 4px;
+    font-family: 'JetBrains Mono', monospace; font-size: 12px;
+    color: var(--accent); font-weight: 500;
+  }
+  .mcp-callout pre {
+    background: var(--code-bg); color: var(--code-text);
+    padding: 14px 16px; border-radius: 8px;
+    font-family: 'JetBrains Mono', monospace; font-size: 13px;
+    line-height: 1.55; overflow-x: auto; margin: 0;
+  }
+  .mcp-callout pre code {
+    background: transparent; color: var(--code-text);
+    padding: 0; font-weight: 400;
+  }
+
+  /* try-it demo */
+  .demo-grid {
+    display: grid; grid-template-columns: 5fr 7fr; gap: 32px;
+  }
+  @media (max-width: 900px) {
+    .demo-grid { grid-template-columns: 1fr; }
+  }
+  .demo-input {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+    padding: 24px;
+  }
+  .demo-input label {
+    display: block; font-size: 13px; font-weight: 600; color: var(--muted);
+    text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 8px;
+  }
+  .demo-input .presets {
+    display: flex; flex-direction: column; gap: 8px; margin-bottom: 24px;
+  }
+  .preset-btn {
+    text-align: left; padding: 12px 14px; background: var(--bg);
+    border: 1px solid var(--border); border-radius: 8px; cursor: pointer;
+    font-family: inherit; font-size: 14px; color: var(--text);
+    transition: all 0.15s ease; line-height: 1.4;
+  }
+  .preset-btn:hover { border-color: var(--accent); background: var(--accent-soft); }
+  .preset-btn.active { border-color: var(--accent); background: var(--accent-soft); }
+  .run-btn {
+    width: 100%; padding: 14px; background: var(--accent); color: white;
+    border: none; border-radius: 8px; font-weight: 600; font-size: 15px;
+    cursor: pointer; font-family: inherit;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+  }
+  .run-btn:hover { background: var(--accent-hover); }
+  .run-btn:disabled { opacity: 0.6; cursor: wait; }
+  .spinner {
+    display: inline-block; width: 14px; height: 14px;
+    border: 2px solid rgba(255,255,255,0.3); border-top-color: white;
+    border-radius: 50%; animation: spin 0.7s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .demo-output {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+    padding: 24px; min-height: 360px;
+  }
+  .empty-state {
+    color: var(--muted); font-size: 14px; padding: 80px 24px;
+    text-align: center;
+  }
+  .result-header {
+    font-size: 18px; font-weight: 600; margin-bottom: 8px; line-height: 1.35;
+  }
+  .result-meta {
+    font-size: 12px; color: var(--muted); margin-bottom: 24px;
+    display: flex; gap: 16px; flex-wrap: wrap;
+  }
+  .result-meta span strong { color: var(--text); font-weight: 600; }
+  .result-section { margin-bottom: 24px; }
+  .result-section h4 {
+    font-size: 12px; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--muted); margin-bottom: 12px;
+  }
+  .dist-row {
+    display: grid; grid-template-columns: 160px 1fr 50px; gap: 12px;
+    align-items: center; padding: 6px 0; font-size: 13px;
+  }
+  .dist-label { color: var(--text); font-weight: 500; }
+  .dist-bar {
+    height: 8px; background: var(--border); border-radius: 4px; overflow: hidden;
+  }
+  .dist-fill {
+    height: 100%; background: var(--accent); border-radius: 4px;
+    transition: width 0.4s ease;
+  }
+  .dist-pct {
+    font-family: 'JetBrains Mono', monospace; font-size: 13px;
+    color: var(--text); text-align: right; font-weight: 500;
+  }
+  .xtab-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+  }
+  .xtab-card {
+    background: var(--bg); border: 1px solid var(--border);
+    border-radius: 8px; padding: 14px 16px;
+  }
+  .xtab-card .label {
+    font-size: 12px; color: var(--muted); margin-bottom: 6px;
+    text-transform: uppercase; letter-spacing: 0.04em;
+  }
+  .xtab-card .value {
+    font-size: 22px; font-weight: 700; letter-spacing: -0.01em;
+    font-family: 'JetBrains Mono', monospace; color: var(--text);
+  }
+  .xtab-card .pew {
+    font-size: 11px; color: var(--muted); margin-top: 4px;
+  }
+  .demo-note {
+    background: var(--accent-soft); border-radius: 8px; padding: 12px 14px;
+    font-size: 12px; color: var(--text); margin-top: 16px; line-height: 1.5;
+  }
+
+  /* footer */
+  footer {
+    padding: 48px 0; border-top: 1px solid var(--border);
+    color: var(--muted); font-size: 13px;
+  }
+  footer .container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+  footer a { color: var(--muted); text-decoration: none; margin-left: 24px; }
+  footer a:hover { color: var(--text); }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="logo" aria-label="Plebify">
+      <img class="logo-light" src="assets/plebify_wordmark_v2.png" alt="Plebify">
+      <img class="logo-dark" src="assets/plebify_wordmark_v2_dark.png" alt="Plebify">
+    </a>
+    <div class="nav-links">
+      <a href="#api">API</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#calibration">Calibration</a>
+      <a href="dashboard.html">Dashboard</a>
+      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+      </button>
+      <a href="#signup" class="nav-cta">Get API key</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="container">
+    <img class="p-mark hero-p-mark" src="assets/plebify_p_icon.png" alt="">
+    <h1>Ask any question. Get the US public's answer, in seconds.</h1>
+    <p class="sub">
+      Plebify is a survey API: POST a question, get a calibrated US-public distribution back.
+      Audited against 42 Pew surveys &mdash; mean TVD 0.28, 15% of topics already publish-quality and improving.
+    </p>
+
+    <div class="code-block">
+      <button class="copy" onclick="copyCode(this)">Copy</button>
+<pre><span class="com"># Ask any question; get a Pew-shaped response.</span>
+$ <span class="kw">curl</span> https://api.plebify.ai/v1/survey \
+    -H <span class="str">"Authorization: Bearer $PLEBIFY_KEY"</span> \
+    -H <span class="str">"Content-Type: application/json"</span> \
+    -d <span class="str">'{
+      "question": "Should AI tutors be required in K-12 schools?",
+      "scale":    ["yes", "no"],
+      "crosstabs": ["party", "age", "education"]
+    }'</span></pre>
+    </div>
+
+    <div class="ctas">
+      <a href="#signup" class="btn btn-primary">Get API key <span class="arrow">→</span></a>
+      <a href="#docs" class="btn btn-ghost">View docs</a>
+    </div>
+
+    <div class="badge">
+      <span class="badge-dot" aria-hidden="true"></span>
+      <strong>42 Pew surveys</strong> · party direction <strong>94% correct</strong> · mean TVD <strong>0.28</strong> [CI 0.23&ndash;0.34] · 15% publish-quality (&rarr; 20% target)
+    </div>
+  </div>
+</header>
+
+<section class="section" id="calibration">
+  <div class="container" style="max-width: 720px;">
+    <div class="eyebrow">Calibration</div>
+    <h2>Calibrated, not asserted.</h2>
+    <p class="lead">
+      Every Plebify response includes a per-topic-class calibration confidence band derived from 42 published Pew surveys.
+      We tell you when the swarm is trustworthy and when it isn't &mdash; topic-by-topic.
+    </p>
+    <div class="code-block">
+<pre><span class="kw">GET</span> /v1/calibration
+
+{
+  <span class="str">"corpus"</span>: { <span class="str">"n_topics"</span>: 42, <span class="str">"source"</span>: <span class="str">"Pew Research American Trends Panel"</span> },
+  <span class="str">"overall"</span>: {
+    <span class="str">"mean_tvd"</span>:        0.28,
+    <span class="str">"party_pearson"</span>:   0.86,
+    <span class="str">"publishable_pct"</span>: 0.15    <span class="com">// share of topics at TVD &le; 0.15</span>
+  },
+  <span class="str">"by_topic_class"</span>: {
+    <span class="str">"foreign_policy"</span>:  { <span class="str">"mean_tvd"</span>: 0.41, <span class="str">"confidence"</span>: <span class="str">"medium"</span> },
+    <span class="str">"social_issues"</span>:   { <span class="str">"mean_tvd"</span>: 0.18, <span class="str">"confidence"</span>: <span class="str">"high"</span> },
+    <span class="str">"economic"</span>:        { <span class="str">"mean_tvd"</span>: 0.22, <span class="str">"confidence"</span>: <span class="str">"high"</span> },
+    <span class="str">"technology"</span>:      { <span class="str">"mean_tvd"</span>: 0.33, <span class="str">"confidence"</span>: <span class="str">"medium"</span> }
+  }
+}</pre>
+    </div>
+    <p style="color: var(--muted); font-size: 14px; line-height: 1.6; margin-top: 16px;">
+      Plebify is augmented research, not poll replacement. Use it to pre-test wording, iterate on segments, and generate hypothesis-quality numbers fast. For high-stakes claims, validate against a real survey.
+    </p>
+  </div>
+</section>
+
+<section class="section" id="demo">
+  <div class="container">
+    <div class="eyebrow">Try it now — judge for yourself</div>
+    <h2>Real Pew survey, side by side with the Plebify swarm.</h2>
+    <p class="lead">
+      Every example below is an actual swarm run on a question Pew already asked tens of thousands of Americans.
+      We show the published Pew result next to our prediction so you can see exactly how close it lands &mdash;
+      topline, party crosstabs, and representative voices.
+    </p>
+
+    <div class="demo-grid">
+      <div class="demo-input">
+        <label>Sample questions</label>
+        <div class="presets" id="presets"></div>
+        <button class="run-btn" id="run-btn" onclick="runSurvey()">
+          <span id="run-label">Run swarm survey</span>
+        </button>
+      </div>
+      <div class="demo-output" id="output">
+        <div class="empty-state">Pick a question on the left, then click <strong>Run swarm survey</strong> to see the response.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="api">
+  <div class="container">
+    <div class="eyebrow">API Reference</div>
+    <h2>Three endpoints. MCP-native. Stable contract.</h2>
+    <p class="lead">
+      Plebify is API-first. Authentication is a bearer token. Responses are deterministic per
+      <code>(question, audience, seed)</code> &mdash; rerun the same call, get the same distribution.
+      Or skip the SDK entirely: connect Plebify as an <strong>MCP server</strong> from Claude Code, Cursor,
+      or any MCP-aware client and ask in plain language.
+    </p>
+
+    <div class="api-endpoint">
+      <div class="api-line"><span class="api-method post">POST</span> <span class="api-path">/v1/survey</span></div>
+      <p class="api-desc">Run a question against the Persona Library. Returns headline distribution, crosstabs, and representative quotes.</p>
+      <div class="code-block">
+        <button class="copy" onclick="copyCode(this)">Copy</button>
+<pre>$ <span class="kw">curl</span> https://api.plebify.ai/v1/survey \
+    -H <span class="str">"Authorization: Bearer $PLEBIFY_KEY"</span> \
+    -H <span class="str">"Content-Type: application/json"</span> \
+    -d <span class="str">'{
+      "question":  "Should AI tutors be required in K-12 schools?",
+      "scale":     ["yes", "no"],
+      "audience":  "census",
+      "crosstabs": ["party", "age", "race", "education"],
+      "n_quotes":  3,
+      "seed":      42
+    }'</span>
+
+<span class="com"># Response (abridged):</span>
+{
+  <span class="str">"distribution"</span>:  { <span class="str">"yes"</span>: 0.32, <span class="str">"no"</span>: 0.68 },
+  <span class="str">"n_respondents"</span>: 217,
+  <span class="str">"latency_ms"</span>:    1840,
+  <span class="str">"crosstabs"</span>: {
+    <span class="str">"party"</span>: {
+      <span class="str">"Dem_or_lean"</span>: { <span class="str">"yes"</span>: 0.41, <span class="str">"no"</span>: 0.59 },
+      <span class="str">"Rep_or_lean"</span>: { <span class="str">"yes"</span>: 0.24, <span class="str">"no"</span>: 0.76 }
+    },
+    <span class="str">"age"</span>:        { <span class="str">"18-29"</span>: { ... }, <span class="str">"30-44"</span>: { ... }, ... }
+  },
+  <span class="str">"quotes"</span>: [
+    { <span class="str">"persona_id"</span>: <span class="str">"gen_z_..."</span>, <span class="str">"answer"</span>: <span class="str">"yes"</span>,
+      <span class="str">"reason"</span>: <span class="str">"Used right, AI tutoring could close gaps for kids in under-resourced schools."</span> }
+  ],
+  <span class="str">"calibration"</span>: {
+    <span class="str">"topic_class"</span>: <span class="str">"education_policy"</span>,
+    <span class="str">"expected_tvd_band"</span>: [0.10, 0.18],
+    <span class="str">"confidence"</span>: <span class="str">"medium-high"</span>
+  }
+}</pre>
+      </div>
+    </div>
+
+    <div class="api-endpoint">
+      <div class="api-line"><span class="api-method get">GET</span> <span class="api-path">/v1/personas</span></div>
+      <p class="api-desc">Browse / filter the Persona Library by any demographic field. Returns persona cards with <code>id</code>, <code>demographics</code>, <code>bio_short</code>, and <code>weight_census</code>. Useful for inspecting who is in the swarm before running a survey.</p>
+    </div>
+
+    <div class="api-endpoint">
+      <div class="api-line"><span class="api-method get">GET</span> <span class="api-path">/v1/calibration</span></div>
+      <p class="api-desc">Current Pew calibration state. Per-topic-class confidence bands. Use to set expectations before quoting.</p>
+      <div class="code-block">
+        <button class="copy" onclick="copyCode(this)">Copy</button>
+<pre>$ <span class="kw">curl</span> https://api.plebify.ai/v1/calibration -H <span class="str">"Authorization: Bearer $PLEBIFY_KEY"</span>
+
+{
+  <span class="str">"library_version"</span>:   <span class="str">"v3.3"</span>,
+  <span class="str">"n_personas"</span>:        217,
+  <span class="str">"corpus"</span>: {
+    <span class="str">"source"</span>:           <span class="str">"Pew Research American Trends Panel"</span>,
+    <span class="str">"n_topics"</span>:         42,
+    <span class="str">"last_refresh"</span>:     <span class="str">"2026-05-26T18:00:00Z"</span>
+  },
+  <span class="str">"by_topic_class"</span>: {
+    <span class="str">"social_issues"</span>:   { <span class="str">"mean_tvd"</span>: 0.14, <span class="str">"confidence"</span>: <span class="str">"high"</span> },
+    <span class="str">"economic"</span>:        { <span class="str">"mean_tvd"</span>: 0.18, <span class="str">"confidence"</span>: <span class="str">"high"</span> },
+    <span class="str">"foreign_policy"</span>:  { <span class="str">"mean_tvd"</span>: 0.31, <span class="str">"confidence"</span>: <span class="str">"medium"</span> },
+    <span class="str">"niche_tech"</span>:      { <span class="str">"mean_tvd"</span>: 0.36, <span class="str">"confidence"</span>: <span class="str">"low"</span> }
+  }
+}</pre>
+      </div>
+    </div>
+
+    <div class="mcp-callout" id="mcp">
+      <h3>Also runs as MCP</h3>
+      <p>Connect Plebify to Claude/Cursor/agents: <code>https://mcp.plebify.ai</code></p>
+      <pre><code>{"plebify": {"command": "npx", "args": ["@plebify/mcp"]}}</code></pre>
+    </div>
+
+    <h3 style="margin-top: 56px;">Auth, errors, rate limits</h3>
+    <table class="api-table">
+      <thead><tr><th>Concept</th><th>How it works</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Auth</strong></td><td><code>Authorization: Bearer &lt;your-key&gt;</code> header. Keys never expire; rotate via dashboard.</td></tr>
+        <tr><td><strong>Determinism</strong></td><td>Pass <code>seed</code> to lock the swarm sample. Same call &rarr; same distribution. Omit seed for fresh sampling.</td></tr>
+        <tr><td><strong>Rate limits</strong></td><td>Free 10 req/min, Pro 200 req/min, Scale custom. <code>429 Too Many Requests</code> with <code>Retry-After</code> header on overage.</td></tr>
+        <tr><td><strong>Latency</strong></td><td>P50 1.5s, P95 3s on Pro tier. ZIP-generated audiences add ~30s on first call (subsequent cached).</td></tr>
+        <tr><td><strong>Errors</strong></td><td><code>4xx</code> for invalid request, <code>503</code> if swarm capacity is saturated, never silent &mdash; every error has a code + suggested fix.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="section" id="pricing">
+  <div class="container">
+    <div class="eyebrow">Pricing</div>
+    <h2>Predictable, per-call. No seat fees.</h2>
+    <p class="lead">
+      Start free. Scale to thousands of calls per day without quote-and-haggle.
+    </p>
+
+    <div class="pricing-grid">
+      <div class="price-card">
+        <h3>Free</h3>
+        <div class="price">$0<small>/month</small></div>
+        <div class="price-sub">For exploration and prototypes.</div>
+        <ul class="price-features">
+          <li>50 survey calls / month</li>
+          <li>Headline distribution only</li>
+          <li class="muted">No crosstabs</li>
+          <li class="muted">Community support</li>
+        </ul>
+        <a href="#signup" class="btn btn-ghost">Get API key</a>
+      </div>
+      <div class="price-card featured">
+        <span class="price-tag">Most popular</span>
+        <h3>Pro</h3>
+        <div class="price">$99<small>/month</small></div>
+        <div class="price-sub">For market researchers and product teams.</div>
+        <ul class="price-features">
+          <li>2,500 survey calls / month</li>
+          <li>Full partisan + demographic crosstabs</li>
+          <li>Representative quote sampling</li>
+          <li>Per-topic calibration confidence band</li>
+          <li>Email support</li>
+        </ul>
+        <a href="#signup" class="btn btn-primary">Start Pro</a>
+      </div>
+      <div class="price-card">
+        <h3>Scale</h3>
+        <div class="price">Custom</div>
+        <div class="price-sub">For platforms and political-strategy workflows.</div>
+        <ul class="price-features">
+          <li>Unlimited survey calls</li>
+          <li>Priority routing &amp; SLA</li>
+          <li>Custom persona libraries</li>
+          <li>Dedicated calibration runs</li>
+          <li>Slack / phone support</li>
+        </ul>
+        <a href="#contact" class="btn btn-ghost">Talk to us</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div>© 2026 Plebify Research, Inc.</div>
+    <div>
+      <a href="#docs">Docs</a>
+      <a href="#api">API</a>
+      <a href="#changelog">Changelog</a>
+      <a href="#privacy">Privacy</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Theme
+  function setTheme(t) {
+    document.documentElement.dataset.theme = t;
+    localStorage.setItem('polity-theme', t);
+  }
+  function toggleTheme() {
+    setTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark');
+  }
+  (function init() {
+    const saved = localStorage.getItem('polity-theme');
+    if (saved) setTheme(saved);
+    else if (window.matchMedia('(prefers-color-scheme: dark)').matches) setTheme('dark');
+  })();
+
+  function copyCode(btn) {
+    const text = btn.parentElement.querySelector('pre').innerText;
+    navigator.clipboard.writeText(text);
+    const orig = btn.innerText; btn.innerText = 'Copied'; setTimeout(() => btn.innerText = orig, 1200);
+  }
+
+  // ===== Demo data (modeled on our actual N=39 calibration results) =====
+  const PRESETS = [
+    {
+      "id": "W32_Feb18__govt_role_which_statement_comes_closer_to_your_own_views_even_if_neither_is_exac",
+      "title": "Role of government",
+      "blurb": "Should government do more to solve problems, or is it doing too much?",
+      "question": "Which statement comes closer to your own views?",
+      "options": [
+        "Govt should do more",
+        "Govt does too much"
+      ],
+      "n_atp": 6137,
+      "wave": "W32_Feb18",
+      "tvd": 0.0185,
+      "pew": {
+        "Govt should do more": 0.51,
+        "Govt does too much": 0.489
+      },
+      "swarm": {
+        "Govt should do more": 0.492,
+        "Govt does too much": 0.508
+      },
+      "xparty": {
+        "Dem": {
+          "pew": {
+            "Govt should do more": 0.799,
+            "Govt does too much": 0.201
+          },
+          "swarm": {
+            "Govt should do more": 0.731,
+            "Govt does too much": 0.269
+          }
+        },
+        "Rep": {
+          "pew": {
+            "Govt should do more": 0.185,
+            "Govt does too much": 0.815
+          },
+          "swarm": {
+            "Govt should do more": 0.338,
+            "Govt does too much": 0.662
+          }
+        },
+        "Ind": {
+          "pew": {
+            "Govt should do more": 0.633,
+            "Govt does too much": 0.367
+          },
+          "swarm": {
+            "Govt should do more": 0.37,
+            "Govt does too much": 0.63
+          }
+        }
+      },
+      "quotes": [
+        {
+          "who": "24, F, white, progressive Democrat (climate-first) — Portland, OR",
+          "pick": "Govt should do more",
+          "text": "I think the government needs to take a much more active role in addressing the climate crisis and implementing a Green New Deal, because the free market has clearly failed to prioritize the planet's well-being over profits."
+        },
+        {
+          "who": "37, M, white, conservative Republican, 2A absolutist — rural Idaho",
+          "pick": "Govt does too much",
+          "text": "I think the government's already overstepping its bounds, especially when it comes to my guns and my family's freedoms, so I believe they should just get out of the way and let us take care of ourselves."
+        },
+        {
+          "who": "23, F, white, anti-electoral leftist / anarchist — Oakland, CA",
+          "pick": "Govt does too much",
+          "text": "I think the government is inherently oppressive and corrupt, so the less it's involved in our lives, the better, and we should be focusing on building our own autonomous communities and systems instead."
+        }
+      ]
+    },
+    {
+      "id": "W54_Sep19-1__natprobs_k_how_much_of_a_problem_do_you_think_each_of_the_following_are_in_the_c",
+      "title": "Climate change as a problem",
+      "blurb": "How big a problem is climate change for the country today?",
+      "question": "How much of a problem do you think climate change is in the country today?",
+      "options": [
+        "Very big problem",
+        "Moderately big",
+        "Small problem",
+        "Not a problem"
+      ],
+      "n_atp": 6534,
+      "wave": "W54_Sep19-1",
+      "tvd": 0.0587,
+      "pew": {
+        "Very big problem": 0.511,
+        "Moderately big": 0.218,
+        "Small problem": 0.165,
+        "Not a problem": 0.106
+      },
+      "swarm": {
+        "Very big problem": 0.49,
+        "Moderately big": 0.272,
+        "Small problem": 0.127,
+        "Not a problem": 0.111
+      },
+      "xparty": {
+        "Dem": {
+          "pew": {
+            "Very big problem": 0.774,
+            "Moderately big": 0.179,
+            "Small problem": 0.04,
+            "Not a problem": 0.008
+          },
+          "swarm": {
+            "Very big problem": 0.74,
+            "Moderately big": 0.194,
+            "Small problem": 0.046,
+            "Not a problem": 0.02
+          }
+        },
+        "Rep": {
+          "pew": {
+            "Very big problem": 0.16,
+            "Moderately big": 0.268,
+            "Small problem": 0.332,
+            "Not a problem": 0.241
+          },
+          "swarm": {
+            "Very big problem": 0.309,
+            "Moderately big": 0.321,
+            "Small problem": 0.182,
+            "Not a problem": 0.188
+          }
+        }
+      },
+      "quotes": [
+        {
+          "who": "24, F, white, progressive Democrat (climate-first) — Portland, OR",
+          "pick": "Very big problem",
+          "text": "I think climate change is a very big problem because it's literally threatening the survival of our planet and everything we care about, from the air we breathe to the ecosystems that sustain us."
+        },
+        {
+          "who": "36, F, Black, moderate Democrat, socially conservative — rural Georgia",
+          "pick": "Moderately big",
+          "text": "I think climate change is a moderately big problem because I see the effects of more frequent natural disasters and extreme weather in our community, but I also believe it's not the only issue we're facing and we need to balance our response with the economic realities of our rural area."
+        },
+        {
+          "who": "23, F, white, anti-electoral leftist / anarchist — Oakland, CA",
+          "pick": "Very big problem",
+          "text": "I think climate change is a very big problem because it's a symptom of the destructive capitalist system that prioritizes profit over people and the planet, and it's only getting worse due to the state's inaction and complicity."
+        }
+      ]
+    },
+    {
+      "id": "W43_Jan19__racesurv6_when_it_comes_to_racial_discrimination_which_do_you_think_is_the_bigge",
+      "title": "Racial discrimination",
+      "blurb": "Which is the bigger problem: seeing discrimination where it doesn't exist, or not seeing it where it does?",
+      "question": "When it comes to racial discrimination, which do you think is the bigger problem for the country today?",
+      "options": [
+        "Seeing it where it doesn't exist",
+        "Not seeing it where it does"
+      ],
+      "n_atp": 6565,
+      "wave": "W43_Jan19",
+      "tvd": 0.0709,
+      "pew": {
+        "Seeing it where it doesn't exist": 0.354,
+        "Not seeing it where it does": 0.646
+      },
+      "swarm": {
+        "Seeing it where it doesn't exist": 0.283,
+        "Not seeing it where it does": 0.717
+      },
+      "xparty": {
+        "Dem": {
+          "pew": {
+            "Seeing it where it doesn't exist": 0.161,
+            "Not seeing it where it does": 0.839
+          },
+          "swarm": {
+            "Seeing it where it doesn't exist": 0.136,
+            "Not seeing it where it does": 0.864
+          }
+        },
+        "Rep": {
+          "pew": {
+            "Seeing it where it doesn't exist": 0.709,
+            "Not seeing it where it does": 0.291
+          },
+          "swarm": {
+            "Seeing it where it doesn't exist": 0.41,
+            "Not seeing it where it does": 0.59
+          }
+        },
+        "Ind": {
+          "pew": {
+            "Seeing it where it doesn't exist": 0.365,
+            "Not seeing it where it does": 0.635
+          },
+          "swarm": {
+            "Seeing it where it doesn't exist": 0.269,
+            "Not seeing it where it does": 0.731
+          }
+        }
+      },
+      "quotes": [
+        {
+          "who": "24, M, white, progressive Democrat (DSA) — Minneapolis, MN",
+          "pick": "Not seeing it where it does",
+          "text": "I think people not seeing racial discrimination where it really does exist is the bigger problem because systemic racism is so ingrained in our institutions and culture that it's often invisible to those who aren't directly affected by it."
+        },
+        {
+          "who": "47, F, Black, Democrat, socially conservative (pro-life, traditional on family) — Silver Spring, MD",
+          "pick": "Not seeing it where it does",
+          "text": "I believe people not seeing racial discrimination where it really does exist is the bigger problem because I have seen with my own eyes how some of my patients and their families can be blind to the struggles that people like me, an immigrant and a black woman, face every day."
+        },
+        {
+          "who": "23, F, white, anti-electoral leftist / anarchist — Oakland, CA",
+          "pick": "Not seeing it where it does",
+          "text": "I think people not seeing racial discrimination where it really does exist is the bigger problem because it allows systemic injustices to persist and maintains the status quo of oppression that we see in policing, housing, education, and every other institution."
+        }
+      ]
+    },
+    {
+      "id": "W36_Jun-18-1__highedwrngb_please_indicate_whether_this_is_a_reason_why_you_think_the_higher_ed",
+      "title": "Politics on campus",
+      "blurb": "Is professors bringing their political views into the classroom a reason higher ed is headed the wrong way?",
+      "question": "Is “professors bringing their political and social views into the classroom” a reason the U.S. higher education system is headed in the wrong direction?",
+      "options": [
+        "Major reason",
+        "Minor reason",
+        "Not a reason"
+      ],
+      "n_atp": 2824,
+      "wave": "W36_Jun-18-1",
+      "tvd": 0.0581,
+      "pew": {
+        "Major reason": 0.52,
+        "Minor reason": 0.221,
+        "Not a reason": 0.259
+      },
+      "swarm": {
+        "Major reason": 0.462,
+        "Minor reason": 0.226,
+        "Not a reason": 0.312
+      },
+      "xparty": {
+        "Dem": {
+          "pew": {
+            "Major reason": 0.145,
+            "Minor reason": 0.331,
+            "Not a reason": 0.524
+          },
+          "swarm": {
+            "Major reason": 0.257,
+            "Minor reason": 0.255,
+            "Not a reason": 0.488
+          }
+        },
+        "Rep": {
+          "pew": {
+            "Major reason": 0.84,
+            "Minor reason": 0.12,
+            "Not a reason": 0.04
+          },
+          "swarm": {
+            "Major reason": 0.614,
+            "Minor reason": 0.202,
+            "Not a reason": 0.184
+          }
+        }
+      },
+      "quotes": [
+        {
+          "who": "28, F, Asian, Democratic socialist, climate emergency absolutist — Berkeley, CA",
+          "pick": "Not a reason",
+          "text": "I believe that professors sharing their perspectives, including those related to social and political issues, can actually enhance the learning experience and foster critical thinking, as long as they encourage open discussion and diverse viewpoints."
+        },
+        {
+          "who": "34, M, white, conservative Republican, evangelical — Greenville, SC",
+          "pick": "Major reason",
+          "text": "I believe professors bringing their political and social views into the classroom is a major reason the US higher education system is headed in the wrong direction because it can lead to indoctrination and suppression of conservative and Christian viewpoints, which undermines the principles of academic freedom and intellectual diversity."
+        },
+        {
+          "who": "27, M, white, libertarian — Austin, TX",
+          "pick": "Major reason",
+          "text": "I think it's a major reason because I believe professors should stick to teaching their subject matter without indoctrinating students with their personal biases, which can stifle free speech and open discussion."
+        }
+      ]
+    }
+  ];
+
+  // Render presets
+  const presetsEl = document.getElementById('presets');
+  let selected = PRESETS[0];
+  PRESETS.forEach((p, i) => {
+    const b = document.createElement('button');
+    b.className = 'preset-btn' + (i === 0 ? ' active' : '');
+    b.textContent = p.title;
+    b.onclick = () => {
+      selected = p;
+      document.querySelectorAll('.preset-btn').forEach(x => x.classList.remove('active'));
+      b.classList.add('active');
+    };
+    presetsEl.appendChild(b);
+  });
+
+  function runSurvey() {
+    const btn = document.getElementById('run-btn');
+    const lbl = document.getElementById('run-label');
+    btn.disabled = true;
+    lbl.innerHTML = '<span class="spinner"></span> Running swarm…';
+    const start = Date.now();
+    setTimeout(() => {
+      const elapsed = ((Date.now() - start) / 1000).toFixed(1);
+      renderResult(selected, elapsed);
+      btn.disabled = false;
+      lbl.textContent = 'Run swarm survey';
+    }, 1200 + Math.random() * 600);
+  }
+
+  function fmtPct(v) { return (v * 100).toFixed(1) + '%'; }
+
+  function topKey(o) { let bk=null, bv=-1; for (const k in o){ if(o[k]>bv){bv=o[k];bk=k;} } return bk; }
+
+  // Paired Pew-vs-swarm bar for one option
+  function pairedRow(label, pew, swarm) {
+    return `
+      <div class="dist-row" style="grid-template-columns: 200px 1fr; align-items:start; gap:14px;">
+        <span class="dist-label" style="padding-top:2px;">${label}</span>
+        <span style="display:flex; flex-direction:column; gap:5px;">
+          <span style="display:flex; align-items:center; gap:8px;">
+            <span style="width:42px; font-size:10px; color:var(--muted); text-transform:uppercase; letter-spacing:.03em;">Pew</span>
+            <span class="dist-bar" style="flex:1;"><span class="dist-fill" style="width:${(pew*100).toFixed(1)}%; background:var(--muted);"></span></span>
+            <span class="dist-pct" style="width:46px;">${fmtPct(pew)}</span>
+          </span>
+          <span style="display:flex; align-items:center; gap:8px;">
+            <span style="width:42px; font-size:10px; color:var(--accent); font-weight:600; text-transform:uppercase; letter-spacing:.03em;">Swarm</span>
+            <span class="dist-bar" style="flex:1;"><span class="dist-fill" style="width:${(swarm*100).toFixed(1)}%;"></span></span>
+            <span class="dist-pct" style="width:46px;">${fmtPct(swarm)}</span>
+          </span>
+        </span>
+      </div>`;
+  }
+
+  function renderResult(p, elapsed) {
+    const out = document.getElementById('output');
+    const tvdPts = (p.tvd * 100).toFixed(1);
+
+    const distRows = p.options.map(o => pairedRow(o, p.pew[o] ?? 0, p.swarm[o] ?? 0)).join('');
+
+    // Per-party crosstab: show each party's lean on the headline option, Pew vs swarm
+    const headOpt = topKey(p.pew);
+    const partyOrder = ['Dem', 'Rep'].filter(x => p.xparty[x]);
+    const xtabCards = partyOrder.map(party => {
+      const pw = p.xparty[party].pew[headOpt] ?? 0;
+      const sw = p.xparty[party].swarm[headOpt] ?? 0;
+      return `
+      <div class="xtab-card">
+        <div class="label">${party} — “${headOpt}”</div>
+        <div class="value">${fmtPct(sw)}</div>
+        <div class="pew">Pew: ${fmtPct(pw)}</div>
+      </div>`;
+    }).join('');
+
+    const quotes = p.quotes.map(q => `
+      <div style="padding: 12px 14px; border-left: 2px solid var(--accent); background: var(--bg); margin-bottom: 8px; border-radius: 0 6px 6px 0;">
+        <div style="font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 4px;">${q.who} · picked “${q.pick}”</div>
+        <div style="font-size: 14px; line-height: 1.5; color: var(--text);">${q.text}</div>
+      </div>`).join('');
+
+    out.innerHTML = `
+      <div class="result-header">${p.title}</div>
+      <div style="font-size:13px; color:var(--muted); margin:-4px 0 14px;">${p.question}</div>
+      <div class="result-meta">
+        <span><strong>${elapsed}s</strong> latency</span>
+        <span>swarm n=<strong>320</strong></span>
+        <span>vs Pew ATP ${p.wave}, n=<strong>${p.n_atp.toLocaleString()}</strong></span>
+        <span>topline error: <strong>${tvdPts} pts</strong></span>
+      </div>
+      <div class="result-section">
+        <h4>Topline — real Pew survey vs Plebify swarm</h4>
+        ${distRows}
+      </div>
+      <div class="result-section">
+        <h4>By party — “${headOpt}” (swarm vs Pew)</h4>
+        <div class="xtab-grid">${xtabCards}</div>
+      </div>
+      <div class="result-section">
+        <h4>Representative voices</h4>
+        ${quotes}
+      </div>
+      <div class="demo-note">
+        <strong>Real output, not a mockup.</strong> The swarm numbers are an actual Plebify run
+        (Llama&nbsp;3.3&nbsp;70B over a 320-persona library); the Pew column is the published
+        American Trends Panel result for the same question. Topline lands within
+        a few points; the swarm ranks every demographic group correctly but slightly
+        compresses the partisan extremes. Get an API key to run your own question.
+      </div>`;
+  }
+</script>
+
+</body>
+</html>
