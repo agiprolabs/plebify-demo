@@ -539,6 +539,46 @@ $ <span class="kw">curl</span> https://api.plebify.ai/v1/survey \
   </div>
 </section>
 
+<section class="section" id="ask">
+  <div class="container">
+    <div class="eyebrow">Live — ask your own</div>
+    <h2>Now ask the swarm a research question.</h2>
+    <p class="lead">
+      Type any question, pick an answer scale, and run it live against a 48-persona
+      census-mix swarm. No account, nothing stored &mdash; an ephemeral session, capped
+      for cost. There's no Pew column here because it's <em>your</em> question: you're
+      seeing the calibrated synthetic-public read with no ground truth to peek at.
+    </p>
+
+    <div class="demo-grid">
+      <div class="demo-input">
+        <label for="ask-q">Your question</label>
+        <textarea id="ask-q" maxlength="300" rows="4"
+          placeholder="e.g. Should the federal minimum wage be raised to $15 an hour?"
+          style="width:100%; box-sizing:border-box; padding:12px 14px; background:var(--bg); border:1px solid var(--border); border-radius:8px; font-family:inherit; font-size:14px; color:var(--text); line-height:1.5; resize:vertical;"></textarea>
+        <label for="ask-scale" style="margin-top:18px;">Answer scale</label>
+        <select id="ask-scale"
+          style="width:100%; box-sizing:border-box; padding:12px 14px; background:var(--bg); border:1px solid var(--border); border-radius:8px; font-family:inherit; font-size:14px; color:var(--text);">
+          <option value="agree">Agree / Disagree (4-point)</option>
+          <option value="support">Support / Oppose (4-point)</option>
+          <option value="important">Importance (4-point)</option>
+          <option value="concern">Concern (4-point)</option>
+          <option value="yesno">Yes / No</option>
+        </select>
+        <button class="run-btn" id="ask-btn" onclick="askSwarm()" style="margin-top:20px;">
+          <span id="ask-label">Ask the swarm</span>
+        </button>
+        <div style="font-size:11px; color:var(--muted); margin-top:10px; line-height:1.5;">
+          ~48 personas · Llama&nbsp;3.3&nbsp;70B · isotonic-calibrated · ephemeral · 8&nbsp;questions/hour
+        </div>
+      </div>
+      <div class="demo-output" id="ask-output">
+        <div class="empty-state">Type a question, then click <strong>Ask the swarm</strong> for a live synthetic-public read.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="section" id="api">
   <div class="container">
     <div class="eyebrow">API Reference</div>
@@ -1118,6 +1158,85 @@ $ <span class="kw">curl</span> https://api.plebify.ai/v1/survey \
         American Trends Panel result for the same question. Topline lands within
         a few points; the swarm ranks every demographic group correctly but slightly
         compresses the partisan extremes. Get an API key to run your own question.
+      </div>`;
+  }
+
+  // ── Live "ask the swarm" (ephemeral, session-based) ───────────────
+  const SWARM_API = 'https://plebify-swarm-api.onrender.com';
+
+  function sessionId() {
+    let s = localStorage.getItem('plebify_session');
+    if (!s) { s = 'sess_' + Math.random().toString(36).slice(2) + Date.now().toString(36); localStorage.setItem('plebify_session', s); }
+    return s;
+  }
+
+  function barRow(label, v) {
+    return `
+      <div class="dist-row" style="grid-template-columns: 200px 1fr; align-items:center; gap:14px;">
+        <span class="dist-label">${label}</span>
+        <span style="display:flex; align-items:center; gap:8px;">
+          <span class="dist-bar" style="flex:1;"><span class="dist-fill" style="width:${(v*100).toFixed(1)}%;"></span></span>
+          <span class="dist-pct" style="width:46px;">${fmtPct(v)}</span>
+        </span>
+      </div>`;
+  }
+
+  async function askSwarm() {
+    const q = document.getElementById('ask-q').value.trim();
+    const scale = document.getElementById('ask-scale').value;
+    const out = document.getElementById('ask-output');
+    const btn = document.getElementById('ask-btn'), lbl = document.getElementById('ask-label');
+    if (q.length < 8) { out.innerHTML = '<div class="empty-state">Please enter a question of at least 8 characters.</div>'; return; }
+    btn.disabled = true; lbl.innerHTML = '<span class="spinner"></span> Polling 48 personas…';
+    out.innerHTML = '<div class="empty-state">Running the swarm live — ~10–20s once warm.<br>The free-tier backend can take up to ~50s on a cold start.</div>';
+    try {
+      const r = await fetch(SWARM_API + '/ask', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'X-Session': sessionId() },
+        body: JSON.stringify({ question: q, scale })
+      });
+      if (!r.ok) {
+        const e = await r.json().catch(() => ({ detail: 'request failed' }));
+        out.innerHTML = `<div class="empty-state">${r.status === 429 ? '⏳ ' : '⚠️ '}${e.detail || 'Something went wrong.'}</div>`;
+        return;
+      }
+      renderAsk(await r.json());
+    } catch (err) {
+      out.innerHTML = '<div class="empty-state">⚠️ Could not reach the live swarm. The free-tier backend may be waking up — try again in ~30s.</div>';
+    } finally {
+      btn.disabled = false; lbl.textContent = 'Ask the swarm';
+    }
+  }
+
+  function renderAsk(d) {
+    const out = document.getElementById('ask-output');
+    const distRows = d.options.map(o => barRow(o, d.distribution[o] ?? 0)).join('');
+    const headOpt = topKey(d.distribution);
+    const parties = ['Dem', 'Rep', 'Ind'].filter(p => d.by_party && d.by_party[p]);
+    const xtab = parties.map(p => {
+      const sw = d.by_party[p][headOpt] ?? 0;
+      return `<div class="xtab-card"><div class="label">${p} — “${headOpt}”</div><div class="value">${fmtPct(sw)}</div></div>`;
+    }).join('');
+    const quotes = (d.quotes || []).map(q => `
+      <div style="padding:10px 14px; border-left:2px solid var(--accent); background:var(--bg); margin-bottom:8px; border-radius:0 6px 6px 0;">
+        <div style="font-size:12px; color:var(--muted);">${q.who} · leaned “<span style="color:var(--text);">${q.pick}</span>”</div>
+      </div>`).join('');
+    out.innerHTML = `
+      <div class="result-header">${d.question}</div>
+      <div class="result-meta">
+        <span><strong>${d.meta.latency_s}s</strong> latency</span>
+        <span>swarm n=<strong>${d.meta.n_personas}</strong></span>
+        <span>${d.meta.model}</span>
+        <span><strong>calibrated</strong></span>
+      </div>
+      <div class="result-section"><h4>What the synthetic public says</h4>${distRows}</div>
+      <div class="result-section"><h4>By party — “${headOpt}”</h4><div class="xtab-grid">${xtab}</div></div>
+      ${quotes ? `<div class="result-section"><h4>Representative voices</h4>${quotes}</div>` : ''}
+      <div class="demo-note">
+        <strong>Live, ephemeral run.</strong> No Pew column &mdash; this is your own question, so
+        there's no published ground truth to compare against. On the Pew questions we have
+        measured, calibrated topline error runs ~0.10&nbsp;TVD on binary opinion. Nothing here
+        is stored; the session is yours alone.
       </div>`;
   }
 </script>
