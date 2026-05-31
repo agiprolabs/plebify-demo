@@ -4,12 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Dashboard — Plebify</title>
-<meta name="description" content="Your Plebify account: past reports, on-demand Pew-style surveys, API key management.">
+<meta name="description" content="Plebify shared demo workspace: run on-demand Pew-style swarm surveys and browse everyone's saved reports.">
 <link rel="icon" type="image/png" sizes="32x32" href="assets/plebify_p_icon_32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="assets/plebify_p_icon_16.png">
 <link rel="icon" type="image/png" sizes="128x128" href="assets/plebify_p_icon_128.png">
 <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
-<link rel="shortcut icon" href="assets/favicon.ico">
 <link rel="shortcut icon" href="assets/favicon.ico">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -531,7 +530,7 @@
       <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
       </button>
-      <div class="avatar" title="jonathan@agi.pro">
+      <div class="avatar" title="Plebify shared demo">
         <img class="p-mark p-mark-white" src="assets/plebify_p_icon.png" alt="P">
       </div>
     </div>
@@ -550,35 +549,22 @@
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3h7v7H3zM14 3h7v7h-7zM14 14h7v7h-7zM3 14h7v7H3z"/></svg>
           Reports
         </a>
-        <a href="#keys" data-route="keys">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11H5a2 2 0 0 0-2 2v7h18v-7a2 2 0 0 0-2-2h-4M9 11V7a3 3 0 0 1 6 0v4M9 11h6"/></svg>
-          API keys
-        </a>
-        <a href="#audiences" data-route="audiences">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/><circle cx="9" cy="7" r="4"/></svg>
-          Audiences
-        </a>
-        <a href="#mcp" data-route="mcp">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
-          MCP server
-        </a>
         <a href="#usage" data-route="usage">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18M9 17V9M13 17v-4M17 17v-7"/></svg>
-          Usage & billing
-        </a>
-        <a href="#settings" data-route="settings">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33h0a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51h0a1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82v0a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
-          Settings
+          Usage
         </a>
       </nav>
     </div>
     <div class="side-section">
-      <div class="side-label">Plan</div>
+      <div class="side-label">Workspace</div>
       <div style="font-size:13px; color:var(--muted);">
-        <strong style="color:var(--text);">Pro</strong> &middot; 200 req/min<br>
-        <span style="font-feature-settings:'tnum'">1,284 / 5,000</span> calls this month
-        <div style="height:6px; background:var(--surface-2); border-radius:3px; margin-top:8px; overflow:hidden;">
-          <div style="height:100%; width:25%; background:var(--accent);"></div>
+        <strong style="color:var(--text);">Shared demo</strong> &middot; no login<br>
+        Anyone with this link runs against the same live swarm.
+        <div style="margin-top:10px;">
+          <span id="side-spend" style="font-feature-settings:'tnum'">$0.00 / $5.00</span> spent today
+          <div style="height:6px; background:var(--surface-2); border-radius:3px; margin-top:8px; overflow:hidden;">
+            <div id="side-spend-bar" style="height:100%; width:0%; background:var(--accent);"></div>
+          </div>
         </div>
       </div>
     </div>
@@ -605,27 +591,27 @@
       </div>
     </div>
 
-    <!-- Quick stats -->
+    <!-- Quick stats (live) -->
     <div class="stats">
       <div class="stat">
-        <div class="label">Reports this month</div>
-        <div class="value">17</div>
-        <div class="delta">+4 vs. last month</div>
+        <div class="label">Reports in workspace</div>
+        <div class="value" id="st-reports">—</div>
+        <div class="delta">shared across everyone</div>
       </div>
       <div class="stat">
-        <div class="label">Total API calls</div>
-        <div class="value">1,284</div>
-        <div class="delta">+312 vs. last month</div>
+        <div class="label">Reports today</div>
+        <div class="value" id="st-today">—</div>
+        <div class="delta" id="st-calls">— swarm calls</div>
       </div>
       <div class="stat">
-        <div class="label">Mean TVD vs. Pew</div>
-        <div class="value">0.21</div>
-        <div class="delta">in publish band ≤ 0.25</div>
+        <div class="label">Spend today</div>
+        <div class="value" id="st-spend">—</div>
+        <div class="delta">of $5.00 daily cap</div>
       </div>
       <div class="stat">
-        <div class="label">Avg latency P95</div>
-        <div class="value">2.4s</div>
-        <div class="delta">within Pro SLA</div>
+        <div class="label">Swarm</div>
+        <div class="value" style="font-size:18px;">48 personas</div>
+        <div class="delta">Llama 3.3 70B · calibrated</div>
       </div>
     </div>
 
@@ -635,55 +621,37 @@
            style="position: absolute; top: 18px; right: 22px; height: 36px; opacity: 0.18; pointer-events: none;">
       <h2>Generate a Pew-style report</h2>
       <p class="desc">
-        Drop in a question, pick a scale and an audience, and get a publish-ready report (headline distribution +
-        crosstabs + representative quotes + calibration band). Same engine as the API; saved here for re-use.
+        Drop in a question and pick a response scale. The swarm runs live (~10&ndash;20s), and the report is
+        saved to this shared workspace &mdash; headline distribution + party crosstab + representative voices +
+        calibration band. Same engine as the API.
       </p>
 
       <div class="form-row">
         <div>
           <label for="q">Question</label>
-          <textarea id="q" placeholder="e.g. Do you think AI tutors should be required in K-12 schools?">Should the federal government require employers to offer paid family leave?</textarea>
+          <textarea id="q" maxlength="300" placeholder="e.g. Should the federal government require employers to offer paid family leave?"></textarea>
         </div>
       </div>
 
-      <div class="form-row three" style="margin-top:14px;">
+      <div class="form-row" style="margin-top:14px;">
         <div>
           <label for="scale">Response scale</label>
           <select id="scale">
-            <option>Yes / No</option>
-            <option>Strongly favor &mdash; Strongly oppose (5-pt)</option>
-            <option>Approve / Disapprove / No opinion</option>
-            <option>Very concerned &mdash; Not at all (4-pt)</option>
-            <option>Custom&hellip;</option>
-          </select>
-        </div>
-        <div>
-          <label for="aud">Audience</label>
-          <select id="aud">
-            <option>Census-weighted (default)</option>
-            <option>Registered voters</option>
-            <option>18&ndash;29 only</option>
-            <option>Hispanic adults</option>
-            <option>By ZIP code&hellip;</option>
-          </select>
-        </div>
-        <div>
-          <label for="ct">Crosstabs</label>
-          <select id="ct">
-            <option>Party + Age + Education</option>
-            <option>Party + Race + Region</option>
-            <option>Party only</option>
-            <option>All demographics</option>
+            <option value="agree">Agree / Disagree (4-point)</option>
+            <option value="support">Support / Oppose (4-point)</option>
+            <option value="important">Importance (4-point)</option>
+            <option value="concern">Concern (4-point)</option>
+            <option value="yesno">Yes / No</option>
           </select>
         </div>
       </div>
 
       <div class="form-actions">
-        <div class="form-hint">
-          Cost: <strong>1 credit</strong> &middot; ETA <strong>~2s</strong> &middot; seed locked to <code>42</code> for reproducibility.
+        <div class="form-hint" id="compose-hint">
+          ~48 personas &middot; isotonic-calibrated &middot; shared workspace &middot; 8 reports/hour per visitor.
         </div>
-        <button class="btn btn-primary" onclick="alert('In production this calls POST /v1/reports — wired in next deploy.');">
-          Run report
+        <button class="btn btn-primary" id="run-report" onclick="runReport()">
+          <span id="run-report-label">Run report</span>
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </button>
       </div>
@@ -693,7 +661,7 @@
     <div class="panel">
       <div class="panel-head">
         <h2>Recent reports</h2>
-        <span class="meta">17 reports &middot; oldest 2026-04-08</span>
+        <span class="meta" id="reports-meta">loading…</span>
       </div>
       <div class="panel-body">
         <table>
@@ -716,541 +684,49 @@
   </section>
   <!-- ============================ /REPORTS ============================ -->
 
-  <!-- ============================ API KEYS ============================ -->
-  <section class="workspace-section" id="ws-keys">
-    <div class="page-head">
-      <div>
-        <h1>API keys</h1>
-        <div class="sub">Bearer tokens for the Plebify API. Keys are shown in full once at creation &mdash; store them in a secrets manager.</div>
-      </div>
-      <button class="btn btn-primary" onclick="alert('In production: POST /v1/keys — wired in next deploy.');">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
-        Create new key
-      </button>
-    </div>
 
-    <div class="stats">
-      <div class="stat"><div class="label">Active keys</div><div class="value">3</div></div>
-      <div class="stat"><div class="label">Inactive</div><div class="value">1</div></div>
-      <div class="stat"><div class="label">Calls today</div><div class="value">187</div></div>
-      <div class="stat"><div class="label">Last rotation</div><div class="value" style="font-size:18px;">14 days ago</div></div>
-    </div>
 
-    <div class="panel">
-      <div class="panel-head"><h2>Active keys <span class="count">4 total</span></h2></div>
-      <div class="panel-body">
-        <table>
-          <thead><tr>
-            <th>Name</th><th>Key</th><th>Scope</th><th>Created</th><th>Last used</th><th>Status</th><th></th>
-          </tr></thead>
-          <tbody>
-            <tr>
-              <td><strong>Production</strong><div style="color:var(--muted); font-size:12px;">Plebify on-call dashboard</div></td>
-              <td class="mono">sk-live-...ab3f1</td>
-              <td><span class="tag">survey</span> <span class="tag">personas</span> <span class="tag">calibration</span> <span class="tag">reports</span></td>
-              <td style="color:var(--muted); font-size:13px;">2026-03-12</td>
-              <td style="color:var(--muted); font-size:13px;">2h ago</td>
-              <td><span class="dot dot-green"></span>Active</td>
-              <td class="actions-inline">
-                <a href="#" onclick="event.preventDefault(); alert('Rotated.');">Rotate</a>
-                <a href="#" class="danger" onclick="event.preventDefault(); confirm('Revoke this key? Existing calls will 401.') && alert('Revoked.');">Revoke</a>
-              </td>
-            </tr>
-            <tr>
-              <td><strong>Staging</strong><div style="color:var(--muted); font-size:12px;">Internal QA + integration tests</div></td>
-              <td class="mono">sk-live-...x092k</td>
-              <td><span class="tag">survey</span> <span class="tag">personas</span> <span class="tag">calibration</span></td>
-              <td style="color:var(--muted); font-size:13px;">2026-03-12</td>
-              <td style="color:var(--muted); font-size:13px;">yesterday</td>
-              <td><span class="dot dot-green"></span>Active</td>
-              <td class="actions-inline">
-                <a href="#" onclick="event.preventDefault();">Rotate</a>
-                <a href="#" class="danger" onclick="event.preventDefault();">Revoke</a>
-              </td>
-            </tr>
-            <tr>
-              <td><strong>MCP &mdash; Claude Code</strong><div style="color:var(--muted); font-size:12px;">Auto-provisioned by MCP handshake</div></td>
-              <td class="mono">sk-live-...mc4qe</td>
-              <td><span class="tag">survey</span> <span class="tag">personas</span></td>
-              <td style="color:var(--muted); font-size:13px;">2026-05-01</td>
-              <td style="color:var(--muted); font-size:13px;">14m ago</td>
-              <td><span class="dot dot-green"></span>Active</td>
-              <td class="actions-inline">
-                <a href="#" onclick="event.preventDefault();">Rotate</a>
-                <a href="#" class="danger" onclick="event.preventDefault();">Revoke</a>
-              </td>
-            </tr>
-            <tr>
-              <td><strong>Eng analytics dashboard</strong><div style="color:var(--muted); font-size:12px;">Read-only embed key</div></td>
-              <td class="mono">sk-live-...nkz2p</td>
-              <td><span class="tag">personas</span> <span class="tag">calibration</span></td>
-              <td style="color:var(--muted); font-size:13px;">2026-04-08</td>
-              <td style="color:var(--muted); font-size:13px;">never</td>
-              <td><span class="dot dot-gray"></span>Inactive</td>
-              <td class="actions-inline">
-                <a href="#" onclick="event.preventDefault();">Activate</a>
-                <a href="#" class="danger" onclick="event.preventDefault();">Delete</a>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
 
-    <div class="panel">
-      <div class="panel-head">
-        <h2>Webhooks <span class="count">2 endpoints</span></h2>
-        <a href="#" class="btn btn-ghost btn-small">+ Add webhook</a>
-      </div>
-      <div class="panel-body">
-        <table>
-          <thead><tr><th>Event</th><th>URL</th><th>Last delivery</th><th>Status</th><th></th></tr></thead>
-          <tbody>
-            <tr>
-              <td><code>report.completed</code></td>
-              <td class="mono">https://hooks.acme.io/plebify/done</td>
-              <td style="color:var(--muted); font-size:13px;">2h ago &middot; 200</td>
-              <td><span class="dot dot-green"></span>Live</td>
-              <td class="actions-inline"><a href="#">Test</a> <a href="#" class="danger">Remove</a></td>
-            </tr>
-            <tr>
-              <td><code>quota.threshold</code></td>
-              <td class="mono">https://hooks.acme.io/plebify/quota</td>
-              <td style="color:var(--muted); font-size:13px;">3d ago &middot; 200</td>
-              <td><span class="dot dot-green"></span>Live</td>
-              <td class="actions-inline"><a href="#">Test</a> <a href="#" class="danger">Remove</a></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
 
-    <div class="panel">
-      <div class="panel-head"><h2>IP allowlist</h2></div>
-      <div class="panel-body" style="padding: 18px 22px; color: var(--muted); font-size: 14px;">
-        Currently <strong>unrestricted</strong> &mdash; keys are valid from any IP.
-        <a href="#" style="margin-left: 12px;">+ Restrict to specific IPs</a>
-      </div>
-    </div>
-  </section>
-  <!-- ============================ /API KEYS ============================ -->
 
-  <!-- ============================ AUDIENCES ============================ -->
-  <section class="workspace-section" id="ws-audiences">
-    <div class="page-head">
-      <div>
-        <h1>Audiences</h1>
-        <div class="sub">Saved persona slices you can reuse across surveys. Built-in audiences are versioned with the library; custom ones are yours.</div>
-      </div>
-      <button class="btn btn-primary" onclick="alert('In production: POST /v1/audiences — wired in next deploy.');">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
-        New audience
-      </button>
-    </div>
 
-    <div class="stats">
-      <div class="stat"><div class="label">Built-in</div><div class="value">3</div></div>
-      <div class="stat"><div class="label">Custom</div><div class="value">5</div></div>
-      <div class="stat"><div class="label">Library version</div><div class="value" style="font-size:18px;">v3.4</div><div class="delta">Census-raked &middot; 297 personas</div></div>
-      <div class="stat"><div class="label">Most-used</div><div class="value" style="font-size:18px;">Census-weighted</div><div class="delta">12 reports this month</div></div>
-    </div>
-
-    <div class="aud-grid">
-      <div class="aud-card builtin">
-        <div class="badge-row"><span class="tag">built-in</span><span class="tag">default</span></div>
-        <div class="name">Census-weighted (US adults 18+)</div>
-        <div class="desc">The full library, raked by IPF to match US Census ACS 2023 marginals on age, sex, race, education, and region. Use this when you want the country.</div>
-        <div class="row"><span>297 personas</span><strong>used 12&times; this month</strong></div>
-      </div>
-
-      <div class="aud-card builtin">
-        <div class="badge-row"><span class="tag">built-in</span></div>
-        <div class="name">Registered voters</div>
-        <div class="desc">Subset of the library who self-identify as registered voters, raked to match Voter Study Group party + region distributions.</div>
-        <div class="row"><span>234 personas</span><strong>used 4&times; this month</strong></div>
-      </div>
-
-      <div class="aud-card builtin">
-        <div class="badge-row"><span class="tag">built-in</span></div>
-        <div class="name">Likely 2028 primary voters</div>
-        <div class="desc">Higher-engagement voter subset. Useful for primary horse-race &amp; messaging tests where general-pop noise drowns the signal.</div>
-        <div class="row"><span>148 personas</span><strong>used 1&times; this month</strong></div>
-      </div>
-
-      <div class="aud-card">
-        <div class="badge-row"><span class="tag">custom</span></div>
-        <div class="name">Texas Hispanic adults</div>
-        <div class="desc">Filter: <code>race=Hispanic AND geo contains TX</code>. Mix Mexican-American multi-gen, Tejano, recent Central American.</div>
-        <div class="row"><span>41 personas</span><strong>created 2026-05-12</strong></div>
-      </div>
-
-      <div class="aud-card">
-        <div class="badge-row"><span class="tag">custom</span></div>
-        <div class="name">Mom influencers, 28&ndash;45</div>
-        <div class="desc">Female, parent, college+, urban/suburban, media_diet includes Instagram/TikTok. For CPG copy testing.</div>
-        <div class="row"><span>26 personas</span><strong>created 2026-05-08</strong></div>
-      </div>
-
-      <div class="aud-card">
-        <div class="badge-row"><span class="tag">custom</span></div>
-        <div class="name">B2B SaaS buyers 30&ndash;55</div>
-        <div class="desc">Knowledge-work job titles, income $90K+, decision-maker flag. For pricing &amp; positioning research.</div>
-        <div class="row"><span>18 personas</span><strong>created 2026-04-22</strong></div>
-      </div>
-
-      <div class="aud-card">
-        <div class="badge-row"><span class="tag">custom</span></div>
-        <div class="name">Reddit power users</div>
-        <div class="desc">Heavy online media diet, contrarian disposition, 18&ndash;35 skew. For online-sentiment forecasting.</div>
-        <div class="row"><span>22 personas</span><strong>created 2026-04-17</strong></div>
-      </div>
-
-      <div class="aud-card">
-        <div class="badge-row"><span class="tag">custom</span><span class="tag">on-demand</span></div>
-        <div class="name">ZIP 90210 (Beverly Hills, CA)</div>
-        <div class="desc">Auto-generated from ACS block-group data. High-income, white &amp; Hispanic mix, 50+ skew. 30s cold-start.</div>
-        <div class="row"><span>12 personas</span><strong>created 2026-05-23</strong></div>
-      </div>
-    </div>
-  </section>
-  <!-- ============================ /AUDIENCES ============================ -->
-
-  <!-- ============================ MCP SERVER ============================ -->
-  <section class="workspace-section" id="ws-mcp">
-    <div class="page-head">
-      <div>
-        <h1>MCP server</h1>
-        <div class="sub">Plebify exposes its API as a remote Model Context Protocol server. Connect once; ask in plain language.</div>
-      </div>
-      <a href="index.html#mcp" class="btn btn-ghost">View docs &rarr;</a>
-    </div>
-
-    <div class="stats">
-      <div class="stat">
-        <div class="label">Server status</div>
-        <div class="value" style="font-size:18px; display:flex; align-items:center; gap:8px;">
-          <img class="p-mark" src="assets/plebify_p_icon.png" alt="" style="height: 22px;">
-          <span class="dot dot-green"></span>Connected
-        </div>
-        <div class="delta">uptime 99.97% (30d)</div>
-      </div>
-      <div class="stat"><div class="label">Tool calls (30d)</div><div class="value">1,084</div><div class="delta">+38% vs prev 30d</div></div>
-      <div class="stat"><div class="label">Connected clients</div><div class="value">4</div></div>
-      <div class="stat"><div class="label">P95 latency</div><div class="value">2.1s</div></div>
-    </div>
-
-    <div class="panel">
-      <div class="panel-head"><h2>Connection</h2></div>
-      <div class="panel-body" style="padding: 20px 22px;">
-        <div style="display:grid; grid-template-columns: 140px 1fr; gap: 14px; font-size:14px;">
-          <div style="color:var(--muted);">Endpoint</div>
-          <div><code class="mono">https://mcp.plebify.ai</code></div>
-          <div style="color:var(--muted);">Protocol</div>
-          <div>MCP over HTTPS (streamable HTTP transport)</div>
-          <div style="color:var(--muted);">Auth</div>
-          <div><code class="mono">Authorization: Bearer ${PLEBIFY_API_KEY}</code></div>
-          <div style="color:var(--muted);">Key in use</div>
-          <div><code class="mono">sk-live-...mc4qe</code> (MCP &mdash; Claude Code)</div>
-        </div>
-        <div style="margin-top: 18px; display: flex; gap: 10px;">
-          <button class="btn btn-ghost btn-small" onclick="navigator.clipboard.writeText('https://mcp.plebify.ai'); this.textContent='Copied'">Copy endpoint</button>
-          <a href="index.html#mcp" class="btn btn-ghost btn-small">Show config snippet</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="panel">
-      <div class="panel-head"><h2>Tools exposed <span class="count">4 tools</span></h2></div>
-      <div class="panel-body">
-        <div class="mcp-tool">
-          <div>
-            <div class="name">mcp__plebify__survey</div>
-            <div style="color:var(--muted); font-size:12px;">Run a question against the synthetic public.</div>
-          </div>
-          <div class="meta">last called <strong>14m ago</strong> &middot; 832 calls (30d)</div>
-        </div>
-        <div class="mcp-tool">
-          <div>
-            <div class="name">mcp__plebify__personas</div>
-            <div style="color:var(--muted); font-size:12px;">Browse / filter the Persona Library.</div>
-          </div>
-          <div class="meta">last called <strong>2h ago</strong> &middot; 191 calls (30d)</div>
-        </div>
-        <div class="mcp-tool">
-          <div>
-            <div class="name">mcp__plebify__calibration</div>
-            <div style="color:var(--muted); font-size:12px;">Current Pew calibration state by topic class.</div>
-          </div>
-          <div class="meta">last called <strong>6h ago</strong> &middot; 47 calls (30d)</div>
-        </div>
-        <div class="mcp-tool">
-          <div>
-            <div class="name">mcp__plebify__report</div>
-            <div style="color:var(--muted); font-size:12px;">Save a survey result as a sharable PDF + JSON report.</div>
-          </div>
-          <div class="meta">last called <strong>1d ago</strong> &middot; 14 calls (30d)</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="panel">
-      <div class="panel-head"><h2>Connected clients <span class="count">4 live</span></h2></div>
-      <div class="panel-body">
-        <table>
-          <thead><tr><th>Client</th><th>Version</th><th>First seen</th><th>Last call</th><th>Calls (30d)</th><th>Status</th></tr></thead>
-          <tbody>
-            <tr><td><strong>Claude Code</strong></td><td class="mono mono-muted">2.0.18</td><td style="color:var(--muted); font-size:13px;">2026-05-01</td><td style="color:var(--muted); font-size:13px;">14m ago</td><td style="font-feature-settings:'tnum';">832</td><td><span class="dot dot-green"></span>Live</td></tr>
-            <tr><td><strong>Cursor</strong></td><td class="mono mono-muted">0.47.2</td><td style="color:var(--muted); font-size:13px;">2026-05-12</td><td style="color:var(--muted); font-size:13px;">2h ago</td><td style="font-feature-settings:'tnum';">191</td><td><span class="dot dot-green"></span>Live</td></tr>
-            <tr><td><strong>Claude Desktop</strong></td><td class="mono mono-muted">1.4.0</td><td style="color:var(--muted); font-size:13px;">2026-05-19</td><td style="color:var(--muted); font-size:13px;">6h ago</td><td style="font-feature-settings:'tnum';">47</td><td><span class="dot dot-green"></span>Live</td></tr>
-            <tr><td><strong>Zed</strong></td><td class="mono mono-muted">0.180.3</td><td style="color:var(--muted); font-size:13px;">2026-05-22</td><td style="color:var(--muted); font-size:13px;">1d ago</td><td style="font-feature-settings:'tnum';">14</td><td><span class="dot dot-yellow"></span>Idle</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <div class="panel">
-      <div class="panel-head"><h2>Recent tool calls</h2><a href="#" class="btn btn-ghost btn-small">Full log &rarr;</a></div>
-      <div class="panel-body">
-        <table class="log-table">
-          <thead><tr><th>Time</th><th>Client</th><th>Tool</th><th>Input snippet</th><th>Result</th></tr></thead>
-          <tbody>
-            <tr><td class="ts">12:31:08</td><td>Claude Code</td><td class="mono">survey</td><td style="color:var(--muted);">"AI tutors in K-12&hellip;" &middot; n_quotes=3</td><td><span class="ok">200</span> &middot; 1.8s</td></tr>
-            <tr><td class="ts">12:24:41</td><td>Cursor</td><td class="mono">personas</td><td style="color:var(--muted);">race=Hispanic &amp; geo~TX &middot; limit=10</td><td><span class="ok">200</span> &middot; 0.4s</td></tr>
-            <tr><td class="ts">12:18:12</td><td>Claude Code</td><td class="mono">survey</td><td style="color:var(--muted);">"Paid family leave&hellip;" &middot; crosstabs=party,age</td><td><span class="ok">200</span> &middot; 2.1s</td></tr>
-            <tr><td class="ts">10:55:03</td><td>Claude Desktop</td><td class="mono">calibration</td><td style="color:var(--muted);">(no args)</td><td><span class="ok">200</span> &middot; 0.1s</td></tr>
-            <tr><td class="ts">09:14:22</td><td>Claude Code</td><td class="mono">report</td><td style="color:var(--muted);">save survey rep_a3f1k</td><td><span class="ok">201</span> &middot; 0.6s</td></tr>
-            <tr><td class="ts">08:42:17</td><td>Cursor</td><td class="mono">survey</td><td style="color:var(--muted);">"Section 230 reform" &middot; scale=yes/no/unsure</td><td><span class="ok">200</span> &middot; 1.9s</td></tr>
-            <tr><td class="ts">02:13:48</td><td>Claude Code</td><td class="mono">survey</td><td style="color:var(--muted);">"AI replacing jobs"</td><td><span class="err">429</span> &middot; rate-limited</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </section>
-  <!-- ============================ /MCP ============================ -->
-
-  <!-- ============================ USAGE & BILLING ============================ -->
+  <!-- ============================ USAGE ============================ -->
   <section class="workspace-section" id="ws-usage">
     <div class="page-head">
       <div>
-        <h1>Usage &amp; billing</h1>
-        <div class="sub">Current period: May 1 &ndash; May 31, 2026 &middot; 6 days remaining</div>
+        <h1>Usage</h1>
+        <div class="sub">Live activity for the shared demo workspace. Spend resets daily at 00:00 UTC.</div>
       </div>
-      <a href="index.html#pricing" class="btn btn-primary">Upgrade plan</a>
     </div>
 
     <div class="stats">
-      <div class="stat"><div class="label">Calls this month</div><div class="value">1,284</div><div class="delta">25.7% of 5,000 included</div></div>
-      <div class="stat"><div class="label">Spend this month</div><div class="value">$99.00</div><div class="delta">no overage</div></div>
-      <div class="stat"><div class="label">Projected EOM</div><div class="value">1,648</div><div class="delta">on track</div></div>
-      <div class="stat"><div class="label">Avg cost / call</div><div class="value">$0.077</div><div class="delta">flat Pro pricing</div></div>
+      <div class="stat"><div class="label">Reports today</div><div class="value" id="u-today">—</div><div class="delta" id="u-calls">— swarm calls</div></div>
+      <div class="stat"><div class="label">Spend today</div><div class="value" id="u-spend">—</div><div class="delta">of $5.00 daily cap</div></div>
+      <div class="stat"><div class="label">Reports in workspace</div><div class="value" id="u-total">—</div><div class="delta">all-time, shared</div></div>
+      <div class="stat"><div class="label">Cost / report</div><div class="value">~$0.003</div><div class="delta">48 calls · Llama 3.3 70B</div></div>
     </div>
 
     <div class="panel">
-      <div class="panel-head"><h2>Daily call volume <span class="count">last 30 days</span></h2></div>
+      <div class="panel-head"><h2>Reports per day <span class="count">last 30 days</span></h2></div>
       <div class="panel-body" style="padding: 18px 22px;">
         <div class="chart" id="usage-chart"><!-- populated by JS --></div>
-        <div class="chart-axis"><span>Apr 27</span><span>May 5</span><span>May 12</span><span>May 19</span><span>Today</span></div>
       </div>
     </div>
 
     <div class="panel">
-      <div class="panel-head"><h2>Breakdown by endpoint</h2></div>
-      <div class="panel-body" style="padding: 22px;">
-        <div class="stack-row">
-          <div class="top"><span><strong>POST /v1/survey</strong></span><span style="font-feature-settings:'tnum';">891 calls &middot; 69%</span></div>
-          <div class="bar"><div class="fill" style="width: 69%"></div></div>
-        </div>
-        <div class="stack-row">
-          <div class="top"><span><strong>GET /v1/personas</strong></span><span style="font-feature-settings:'tnum';">247 calls &middot; 19%</span></div>
-          <div class="bar"><div class="fill" style="width: 19%"></div></div>
-        </div>
-        <div class="stack-row">
-          <div class="top"><span><strong>GET /v1/calibration</strong></span><span style="font-feature-settings:'tnum';">88 calls &middot; 7%</span></div>
-          <div class="bar"><div class="fill" style="width: 7%"></div></div>
-        </div>
-        <div class="stack-row">
-          <div class="top"><span><strong>POST /v1/reports</strong></span><span style="font-feature-settings:'tnum';">58 calls &middot; 5%</span></div>
-          <div class="bar"><div class="fill" style="width: 5%"></div></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="panel">
-      <div class="panel-head"><h2>Calls by API key</h2></div>
-      <div class="panel-body">
-        <table>
-          <thead><tr><th>Key</th><th>Calls (30d)</th><th>Top endpoint</th><th>Last used</th></tr></thead>
-          <tbody>
-            <tr><td><strong>Production</strong> <code class="mono mono-muted">...ab3f1</code></td><td style="font-feature-settings:'tnum';">948</td><td><code>survey</code></td><td style="color:var(--muted); font-size:13px;">2h ago</td></tr>
-            <tr><td><strong>MCP &mdash; Claude Code</strong> <code class="mono mono-muted">...mc4qe</code></td><td style="font-feature-settings:'tnum';">272</td><td><code>survey</code></td><td style="color:var(--muted); font-size:13px;">14m ago</td></tr>
-            <tr><td><strong>Staging</strong> <code class="mono mono-muted">...x092k</code></td><td style="font-feature-settings:'tnum';">64</td><td><code>personas</code></td><td style="color:var(--muted); font-size:13px;">yesterday</td></tr>
-            <tr><td><strong>Eng analytics</strong> <code class="mono mono-muted">...nkz2p</code></td><td style="font-feature-settings:'tnum';">0</td><td>&mdash;</td><td style="color:var(--muted); font-size:13px;">never</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <div class="panel">
-      <div class="panel-head"><h2>Plan</h2><a href="#" class="btn btn-ghost btn-small">Compare plans &rarr;</a></div>
-      <div class="panel-body" style="padding: 22px; font-size:14px;">
-        <div style="display:flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
-          <div>
-            <strong style="font-size:18px;">Pro</strong> &nbsp;<span class="tag">current</span>
-            <div style="color:var(--muted); margin-top: 4px;">$99/mo &middot; 5,000 calls included &middot; $0.02 per overage call &middot; 200 req/min</div>
-          </div>
-          <a href="index.html#pricing" class="btn btn-primary btn-small">Upgrade to Scale</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="panel">
-      <div class="panel-head"><h2>Invoices</h2></div>
-      <div class="panel-body">
-        <table>
-          <thead><tr><th>Date</th><th>Description</th><th>Amount</th><th>Status</th><th></th></tr></thead>
-          <tbody>
-            <tr><td class="mono mono-muted">2026-05-01</td><td>Pro plan &middot; May 2026</td><td style="font-feature-settings:'tnum';">$99.00</td><td><span class="pill success">paid</span></td><td><a href="#">PDF</a></td></tr>
-            <tr><td class="mono mono-muted">2026-04-01</td><td>Pro plan &middot; Apr 2026</td><td style="font-feature-settings:'tnum';">$99.00</td><td><span class="pill success">paid</span></td><td><a href="#">PDF</a></td></tr>
-            <tr><td class="mono mono-muted">2026-03-01</td><td>Pro plan &middot; Mar 2026 (prorated)</td><td style="font-feature-settings:'tnum';">$62.71</td><td><span class="pill success">paid</span></td><td><a href="#">PDF</a></td></tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <div class="panel">
-      <div class="panel-head"><h2>Payment method</h2><a href="#" class="btn btn-ghost btn-small">Update</a></div>
-      <div class="panel-body" style="padding: 22px; display: flex; align-items: center; gap: 16px; font-size: 14px;">
-        <div style="width:46px; height:30px; background: linear-gradient(135deg, #1a1f71 0%, #2c3aaa 100%); border-radius: 4px; display:flex; align-items:center; justify-content:center; color:white; font-weight:700; font-size:11px; letter-spacing:0.05em;">VISA</div>
-        <div>
-          <div><strong>Visa &bull;&bull;&bull;&bull; 4242</strong></div>
-          <div style="color:var(--muted); font-size:12px;">Expires 12/2028 &middot; Billing email: jonathan@agi.pro</div>
-        </div>
+      <div class="panel-head"><h2>How the demo is capped</h2></div>
+      <div class="panel-body" style="padding: 20px 22px; font-size:14px; color:var(--muted); line-height:1.6;">
+        This is a public, shared workspace &mdash; no accounts, no keys. Every report runs the same 48-persona
+        swarm (Llama&nbsp;3.3&nbsp;70B via OpenRouter) and is stored for everyone to see. To keep it free we cap it:
+        <strong style="color:var(--text);">$5/day total spend</strong> (a hard stop) and
+        <strong style="color:var(--text);">8 reports/hour per visitor</strong>. When the daily cap is hit, new
+        reports pause until 00:00&nbsp;UTC.
       </div>
     </div>
   </section>
   <!-- ============================ /USAGE ============================ -->
 
-  <!-- ============================ SETTINGS ============================ -->
-  <section class="workspace-section" id="ws-settings">
-    <div class="page-head">
-      <div>
-        <h1>Settings</h1>
-        <div class="sub">Account, team, defaults, and brand &mdash; everything that doesn't change between reports.</div>
-      </div>
-      <button class="btn btn-primary" onclick="alert('In production: PATCH /v1/account — wired in next deploy.');">Save changes</button>
-    </div>
 
-    <div class="panel">
-      <div class="panel-head"><h2>Account</h2></div>
-      <div class="panel-body" style="padding: 22px;">
-        <div class="settings-grid">
-          <div class="key">Name</div>
-          <div class="val"><input type="text" value="Jonathan Owens"></div>
-          <div class="key">Email <div class="hint">used for login &amp; invoices</div></div>
-          <div class="val"><input type="text" value="jonathan@agi.pro"></div>
-          <div class="key">Organization</div>
-          <div class="val"><input type="text" value="AGI Pro"></div>
-          <div class="key">Timezone</div>
-          <div class="val"><select><option>America/Anchorage (AKDT, UTC-8)</option><option>America/New_York (EDT, UTC-4)</option><option>America/Los_Angeles (PDT, UTC-7)</option><option>UTC</option></select></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="panel">
-      <div class="panel-head"><h2>Brand &mdash; custom report headers</h2></div>
-      <div class="panel-body" style="padding: 22px;">
-        <div class="settings-grid">
-          <div class="key">Org name on PDFs</div>
-          <div class="val"><input type="text" value="AGI Pro"></div>
-          <div class="key">Logo <div class="hint">PNG/SVG, max 2MB. Used on PDF cover.</div></div>
-          <div class="val"><button class="btn btn-ghost btn-small">Upload logo</button> <span style="color:var(--muted); margin-left:10px;">currently using Plebify default</span></div>
-          <div class="key">Accent color</div>
-          <div class="val">
-            <input type="text" value="#162E51" style="width:120px;">
-            <span style="display:inline-block; width:24px; height:24px; background:#162E51; border-radius:4px; vertical-align:middle; margin-left:8px; border:1px solid var(--border);"></span>
-          </div>
-          <div class="key">Footer line</div>
-          <div class="val"><input type="text" value="Powered by Plebify · Calibrated against 42 Pew Research surveys"></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="panel">
-      <div class="panel-head"><h2>Defaults</h2></div>
-      <div class="panel-body" style="padding: 22px;">
-        <div class="settings-grid">
-          <div class="key">Default audience</div>
-          <div class="val"><select><option>Census-weighted</option><option>Registered voters</option><option>Likely 2028 primary voters</option></select></div>
-          <div class="key">Default crosstabs</div>
-          <div class="val"><select><option>Party + Age + Education</option><option>Party + Race + Region</option><option>Party only</option><option>All demographics</option></select></div>
-          <div class="key">Default seed <div class="hint">locks the swarm sample for reproducibility</div></div>
-          <div class="val"><input type="text" value="42" style="width:120px;"></div>
-          <div class="key">Quote count per report</div>
-          <div class="val"><input type="text" value="3" style="width:120px;"></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="panel">
-      <div class="panel-head"><h2>Notifications</h2></div>
-      <div class="panel-body" style="padding: 22px;">
-        <div class="check-list">
-          <label><input type="checkbox" checked><span>Weekly usage digest<span class="sub">Mondays at 9am local. Calls, spend, top reports.</span></span></label>
-          <label><input type="checkbox" checked><span>Quota &ge; 85% alert<span class="sub">Email when monthly quota is close to overage threshold.</span></span></label>
-          <label><input type="checkbox"><span>New persona library release<span class="sub">When the library version bumps (e.g. v3.4 &rarr; v3.5).</span></span></label>
-          <label><input type="checkbox" checked><span>Pew calibration drift alert<span class="sub">When mean TVD shifts &gt; 0.05 vs. last refresh.</span></span></label>
-          <label><input type="checkbox"><span>Webhook delivery failures<span class="sub">After 3 consecutive 5xx responses to a webhook URL.</span></span></label>
-        </div>
-      </div>
-    </div>
-
-    <div class="panel">
-      <div class="panel-head"><h2>Team <span class="count">2 members</span></h2><a href="#" class="btn btn-ghost btn-small">+ Invite member</a></div>
-      <div class="panel-body" style="padding: 6px 22px 18px;">
-        <div class="team-row">
-          <div class="avatar-sm">JO</div>
-          <div style="flex:1;">
-            <div class="name">Jonathan Owens</div>
-            <div class="email">jonathan@agi.pro</div>
-          </div>
-          <span class="pill">Owner</span>
-        </div>
-        <div class="team-row">
-          <div class="avatar-sm">MR</div>
-          <div style="flex:1;">
-            <div class="name">Maria Reyes</div>
-            <div class="email">maria@agi.pro &middot; <span style="color:var(--muted);">invited 3d ago, not yet accepted</span></div>
-          </div>
-          <span class="pill warn">Pending</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="panel">
-      <div class="panel-head"><h2>Data retention</h2></div>
-      <div class="panel-body" style="padding: 22px;">
-        <div class="settings-grid">
-          <div class="key">Report retention</div>
-          <div class="val"><select><option>90 days (default)</option><option>30 days</option><option>1 year</option><option>Forever</option></select></div>
-          <div class="key">Persona library snapshots</div>
-          <div class="val"><select><option>Keep last 5 versions</option><option>Keep last 2</option><option>Keep all</option></select></div>
-          <div class="key">Audit log retention</div>
-          <div class="val"><select><option>1 year (default)</option><option>30 days</option><option>Forever</option></select></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="danger-zone">
-      <h3>Danger zone</h3>
-      <p style="color:var(--muted); font-size:13px; margin-bottom: 14px;">These actions are permanent. Take a deep breath.</p>
-      <div style="display:flex; gap:10px; flex-wrap: wrap;">
-        <button class="btn btn-danger btn-small" onclick="confirm('Delete all reports? This cannot be undone.') && alert('In production: DELETE /v1/reports?all=true');">Delete all reports</button>
-        <button class="btn btn-danger btn-small" onclick="confirm('Revoke all API keys?') && alert('In production: revoke all keys.');">Revoke all keys</button>
-        <button class="btn btn-danger btn-small" onclick="confirm('Delete entire account? This is permanent.') && alert('In production: DELETE /v1/account');">Delete account</button>
-      </div>
-    </div>
-  </section>
-  <!-- ============================ /SETTINGS ============================ -->
 
   </main>
 </div>
@@ -1290,10 +766,8 @@
     <div class="drawer-section">
       <h4>Export</h4>
       <div class="download-row">
-        <a href="#" class="btn btn-ghost btn-small">Download PDF</a>
-        <a href="#" class="btn btn-ghost btn-small">Download JSON</a>
-        <a href="#" class="btn btn-ghost btn-small">Copy share link</a>
-        <a href="#" class="btn btn-ghost btn-small">Re-run with new seed</a>
+        <button class="btn btn-ghost btn-small" onclick="downloadJSON()">Download JSON</button>
+        <button class="btn btn-ghost btn-small" onclick="copyShare()">Copy summary</button>
       </div>
     </div>
 
@@ -1313,230 +787,162 @@
   }
   applyTheme(localStorage.getItem('plebify-theme') || (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
 
-  // ===== mock reports (UI shell — real data via GET /v1/reports later) =====
-  const reports = [
-    {
-      id: "rep_a3f1k",
-      question: "Should the federal government require employers to offer paid family leave?",
-      audience: "Census-weighted",
-      scale: ["favor", "oppose"],
-      headline: { favor: 0.71, oppose: 0.29 },
-      crosstabs: {
-        party: {
-          "Dem/lean":  { favor: 0.88, oppose: 0.12 },
-          "Rep/lean":  { favor: 0.52, oppose: 0.48 },
-          "Independent": { favor: 0.69, oppose: 0.31 }
-        }
-      },
-      quotes: [
-        { who: "v33_white_male_42_pa_repub", answer: "favor",
-          reason: "Twelve weeks unpaid almost wrecked us when our second was born. Republicans should own paid leave — it's pro-family." },
-        { who: "v31_hispanic_female_28_ca",  answer: "favor",
-          reason: "Stocking shelves three weeks after a C-section is what 'cheap labor' actually looks like. We deserve better." },
-        { who: "v33_white_male_58_tx_repub", answer: "oppose",
-          reason: "Federal mandate hits small business hardest. Tax credit, sure. Mandate, no." }
-      ],
-      calibration: { topic_class: "social_policy", expected_tvd_band: [0.10, 0.18], confidence: "high" },
-      created: "2026-05-26 09:14",
-      status: "ready",
-      ago: "2h ago"
-    },
-    {
-      id: "rep_29kx7",
-      question: "How concerned are you about AI replacing your job in the next 5 years?",
-      audience: "18–44 adults",
-      scale: ["very concerned", "somewhat", "not very", "not at all"],
-      headline: { "very concerned": 0.21, "somewhat": 0.36, "not very": 0.27, "not at all": 0.16 },
-      crosstabs: {
-        party: {
-          "Dem/lean":  { "very concerned": 0.18, "somewhat": 0.34, "not very": 0.29, "not at all": 0.19 },
-          "Rep/lean":  { "very concerned": 0.26, "somewhat": 0.39, "not very": 0.23, "not at all": 0.12 },
-          "Independent": { "very concerned": 0.22, "somewhat": 0.37, "not very": 0.27, "not at all": 0.14 }
-        }
-      },
-      quotes: [
-        { who: "v33_black_female_29_atlanta", answer: "somewhat",
-          reason: "Some of my customer-service work already got cut. Not panic — but it's not nothing." },
-        { who: "v31_white_male_38_seattle",    answer: "not very",
-          reason: "I write the systems. If anything I'm busier than ever." },
-        { who: "v33_hispanic_male_24_phoenix", answer: "very concerned",
-          reason: "My whole life is the warehouse. They keep saying 'just the routine stuff.' That IS what I do." }
-      ],
-      calibration: { topic_class: "tech_policy", expected_tvd_band: [0.18, 0.28], confidence: "medium" },
-      created: "2026-05-25 16:42",
-      status: "ready",
-      ago: "1d ago"
-    },
-    {
-      id: "rep_71b2c",
-      question: "Should Section 230 protections for online platforms be reformed?",
-      audience: "Registered voters",
-      scale: ["yes", "no", "unsure"],
-      headline: { yes: 0.48, no: 0.27, unsure: 0.25 },
-      crosstabs: {
-        party: {
-          "Dem/lean":  { yes: 0.51, no: 0.24, unsure: 0.25 },
-          "Rep/lean":  { yes: 0.54, no: 0.23, unsure: 0.23 },
-          "Independent": { yes: 0.39, no: 0.34, unsure: 0.27 }
-        }
-      },
-      quotes: [
-        { who: "v33_white_female_61_oh_repub", answer: "yes",
-          reason: "Tech companies should be held accountable for what gets posted. They can afford to police it." },
-        { who: "v31_asian_male_34_nyc_dem",    answer: "no",
-          reason: "Liability shields the small forums I rely on, not just Meta. Reform sounds great until it kills the open web." }
-      ],
-      calibration: { topic_class: "tech_policy", expected_tvd_band: [0.20, 0.32], confidence: "medium" },
-      created: "2026-05-24 11:08",
-      status: "ready",
-      ago: "2d ago"
-    },
-    {
-      id: "rep_lk904",
-      question: "Should the U.S. cap prescription drug prices to match what other wealthy countries pay?",
-      audience: "60+ adults",
-      scale: ["favor", "oppose"],
-      headline: { favor: 0.79, oppose: 0.21 },
-      crosstabs: {
-        party: {
-          "Dem/lean":  { favor: 0.91, oppose: 0.09 },
-          "Rep/lean":  { favor: 0.66, oppose: 0.34 },
-          "Independent": { favor: 0.81, oppose: 0.19 }
-        }
-      },
-      quotes: [
-        { who: "v33_black_female_68_atlanta", answer: "favor",
-          reason: "Insulin alone is half my Social Security some months. I don't care what party fixes it, fix it." },
-        { who: "v31_white_male_71_fl_repub",  answer: "favor",
-          reason: "Free market hasn't worked for drugs. Time to stop pretending." }
-      ],
-      calibration: { topic_class: "economic_policy", expected_tvd_band: [0.08, 0.14], confidence: "high" },
-      created: "2026-05-21 08:30",
-      status: "ready",
-      ago: "5d ago"
-    },
-    {
-      id: "rep_zz801",
-      question: "Should public colleges be free for in-state students?",
-      audience: "Census-weighted",
-      scale: ["favor", "oppose"],
-      headline: { favor: 0.58, oppose: 0.42 },
-      crosstabs: {
-        party: {
-          "Dem/lean":  { favor: 0.79, oppose: 0.21 },
-          "Rep/lean":  { favor: 0.31, oppose: 0.69 },
-          "Independent": { favor: 0.57, oppose: 0.43 }
-        }
-      },
-      quotes: [
-        { who: "v33_hispanic_female_22_tx", answer: "favor",
-          reason: "I'm $34k in for a degree I haven't even finished. Yeah, I favor it." },
-        { who: "v31_white_male_46_ks_repub", answer: "oppose",
-          reason: "Free for them, paid for by me. That's not free, that's redistribution with extra steps." }
-      ],
-      calibration: { topic_class: "education_policy", expected_tvd_band: [0.12, 0.20], confidence: "high" },
-      created: "2026-05-19 14:55",
-      status: "ready",
-      ago: "1w ago"
-    },
-    {
-      id: "rep_pn443",
-      question: "Plebify is running this survey now (live).",
-      audience: "Census-weighted",
-      scale: [],
-      headline: {},
-      created: "2026-05-26 11:31",
-      status: "running",
-      ago: "in progress"
-    }
-  ];
+  // ===== live shared workspace (no accounts, anyone can use) =====
+  const SWARM_API = 'https://plebify-swarm-api.onrender.com';
+  let reports = [];
+  let usage = null;
 
-  // render table
+  function esc(s){ return (s||'').replace(/[&<>"]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+  function fmtUSD(v){ return '$' + (v||0).toFixed(2); }
+
   function tvdPill(c) {
     if (!c) return '<span class="pill muted">—</span>';
-    const conf = c.confidence;
-    if (conf === 'high') return '<span class="pill success">high</span>';
-    if (conf === 'medium') return '<span class="pill warn">medium</span>';
-    return '<span class="pill muted">'+conf+'</span>';
+    if (c.confidence === 'high') return '<span class="pill success">high</span>';
+    if (c.confidence === 'medium') return '<span class="pill warn">medium</span>';
+    return '<span class="pill muted">'+c.confidence+'</span>';
   }
   function inlineDist(headline) {
     const entries = Object.entries(headline || {});
-    if (!entries.length) return '<span class="pill warn" style="display:inline-flex; align-items:center; gap:4px;"><img class="p-mark p-mark-pulse" src="assets/plebify_p_icon.png" alt="" style="height: 11px;">running…</span>';
+    if (!entries.length) return '<span class="pill muted">—</span>';
     entries.sort((a, b) => b[1] - a[1]);
-    const top = entries[0];
-    const a = Math.round(top[1] * 100);
+    const top = entries[0], a = Math.round(top[1] * 100);
     return '<div class="dist"><span class="a" style="width:'+a+'%"></span><span class="b" style="width:'+(100-a)+'%"></span></div>'
-         + '<span class="dist-label"><strong>'+a+'%</strong> '+top[0]+'</span>';
+         + '<span class="dist-label"><strong>'+a+'%</strong> '+esc(top[0])+'</span>';
   }
-  const body = document.getElementById('reports-body');
-  body.innerHTML = reports.map((r, i) => {
-    const status = r.status === 'running'
-      ? '<span class="pill warn" style="display:inline-flex; align-items:center; gap:4px;"><img class="p-mark p-mark-pulse" src="assets/plebify_p_icon.png" alt="" style="height: 11px;">running</span>'
-      : tvdPill(r.calibration);
-    return `<tr onclick="openDrawer(${i})" style="cursor:pointer;">
-      <td class="qcell">
-        <div class="question" title="${r.question}">${r.question}</div>
-        <div class="meta-line">${r.id} &middot; ${(r.scale||[]).join(' / ') || '—'}</div>
-      </td>
-      <td>${r.audience}</td>
-      <td>${inlineDist(r.headline)}</td>
-      <td>${status}</td>
-      <td style="color:var(--muted); font-size:13px;">${r.ago}</td>
-      <td><a href="#" onclick="event.stopPropagation(); openDrawer(${i}); return false;" style="font-size:13px;">Open →</a></td>
-    </tr>`;
-  }).join('');
+  function ago(iso) {
+    if (!iso) return '';
+    const t = Date.parse(iso.replace(' UTC','Z').replace(' ','T'));
+    if (isNaN(t)) return iso;
+    const s = (Date.now() - t) / 1000;
+    if (s < 90) return 'just now';
+    if (s < 3600) return Math.round(s/60) + 'm ago';
+    if (s < 86400) return Math.round(s/3600) + 'h ago';
+    return Math.round(s/86400) + 'd ago';
+  }
+
+  function renderStats() {
+    const set = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = v; };
+    if (!usage) return;
+    set('st-reports', usage.reports_total);
+    set('st-today', usage.reports_today);
+    set('st-calls', usage.calls_today + ' swarm calls');
+    set('st-spend', fmtUSD(usage.spent_usd));
+    set('u-today', usage.reports_today);
+    set('u-calls', usage.calls_today + ' swarm calls');
+    set('u-spend', fmtUSD(usage.spent_usd));
+    set('u-total', usage.reports_total);
+    set('side-spend', fmtUSD(usage.spent_usd) + ' / ' + fmtUSD(usage.cap_usd));
+    const bar = document.getElementById('side-spend-bar');
+    if (bar) bar.style.width = Math.min(100, (usage.spent_usd / usage.cap_usd) * 100) + '%';
+  }
+
+  function renderTable() {
+    const body = document.getElementById('reports-body');
+    const meta = document.getElementById('reports-meta');
+    if (!body) return;
+    if (!reports.length) {
+      body.innerHTML = '<tr><td colspan="6" style="padding:40px 22px; text-align:center; color:var(--muted);">No reports yet — run the first one above.</td></tr>';
+      if (meta) meta.textContent = '0 reports';
+      return;
+    }
+    if (meta) meta.textContent = reports.length + ' report' + (reports.length===1?'':'s') + ' · shared workspace';
+    body.innerHTML = reports.map((r, i) => `
+      <tr onclick="openDrawer(${i})" style="cursor:pointer;">
+        <td class="qcell">
+          <div class="question" title="${esc(r.question)}">${esc(r.question)}</div>
+          <div class="meta-line">${r.id} · ${esc((r.options||[]).join(' / '))}</div>
+        </td>
+        <td>Census-weighted</td>
+        <td>${inlineDist(r.headline)}</td>
+        <td>${tvdPill(r.calibration)}</td>
+        <td style="color:var(--muted); font-size:13px;">${ago(r.created)}</td>
+        <td><a href="#" onclick="event.stopPropagation(); openDrawer(${i}); return false;" style="font-size:13px;">Open →</a></td>
+      </tr>`).join('');
+  }
+
+  async function loadReports() {
+    try {
+      const r = await fetch(SWARM_API + '/reports');
+      const d = await r.json();
+      reports = d.reports || [];
+      usage = d.usage || null;
+    } catch (e) { /* leave as-is; backend may be waking */ }
+    renderStats(); renderTable();
+    if ((location.hash.slice(1).split('?')[0]) === 'usage') { const el = document.getElementById('usage-chart'); if (el) el.dataset.rendered = ''; renderUsageChart(); }
+  }
+
+  function sessionId() {
+    let s = localStorage.getItem('plebify_session');
+    if (!s) { s = 'sess_' + Math.random().toString(36).slice(2); localStorage.setItem('plebify_session', s); }
+    return s;
+  }
+
+  async function runReport() {
+    const q = document.getElementById('q').value.trim();
+    const scale = document.getElementById('scale').value;
+    const hint = document.getElementById('compose-hint');
+    const btn = document.getElementById('run-report');
+    const lbl = document.getElementById('run-report-label');
+    if (q.length < 8) { hint.innerHTML = '<span style="color:var(--danger);">Enter a question of at least 8 characters.</span>'; return; }
+    btn.disabled = true; lbl.textContent = 'Running swarm…';
+    hint.textContent = 'Polling 48 personas live — ~10–20s (cold start can take ~50s)…';
+    try {
+      const r = await fetch(SWARM_API + '/reports', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'X-Session': sessionId() },
+        body: JSON.stringify({ question: q, scale })
+      });
+      if (!r.ok) {
+        const e = await r.json().catch(() => ({ detail: 'request failed' }));
+        hint.innerHTML = '<span style="color:var(--danger);">' + (r.status===429 ? '⏳ ' : '⚠️ ') + esc(e.detail || 'failed') + '</span>';
+        return;
+      }
+      const rep = await r.json();
+      document.getElementById('q').value = '';
+      hint.textContent = 'Report saved to the shared workspace.';
+      await loadReports();
+      const idx = reports.findIndex(x => x.id === rep.id);
+      if (idx >= 0) openDrawer(idx);
+    } catch (e) {
+      hint.innerHTML = '<span style="color:var(--danger);">⚠️ Could not reach the swarm. The free backend may be waking — try again in ~30s.</span>';
+    } finally {
+      btn.disabled = false; lbl.textContent = 'Run report';
+    }
+  }
 
   // drawer
   function openDrawer(i) {
     const r = reports[i];
+    if (!r) return;
+    window._drawerReport = r;
     document.getElementById('d-question').textContent = r.question;
     document.getElementById('d-meta').textContent =
-      `${r.audience} · ${(r.scale||[]).join(' / ') || '—'} · created ${r.created} · ${r.id}`;
+      `Census-weighted · ${(r.options||[]).join(' / ')} · ${r.created} · ${r.id}`;
 
-    // headline distribution
     const dist = r.headline || {};
-    const distEl = document.getElementById('d-dist');
-    if (!Object.keys(dist).length) {
-      distEl.innerHTML = '<p style="color:var(--muted); font-size:13px;">Survey still running… come back in ~2s.</p>';
-    } else {
-      distEl.innerHTML = Object.entries(dist).map(([k, v]) =>
-        `<div class="bigbar">
-           <div class="row"><span><strong>${k}</strong></span><span style="font-feature-settings:'tnum'">${Math.round(v*100)}%</span></div>
-           <div class="bar"><div class="fill" style="width:${v*100}%"></div></div>
-         </div>`
-      ).join('');
-    }
+    document.getElementById('d-dist').innerHTML = Object.entries(dist).map(([k,v]) =>
+      `<div class="bigbar"><div class="row"><span><strong>${esc(k)}</strong></span><span style="font-feature-settings:'tnum'">${Math.round(v*100)}%</span></div><div class="bar"><div class="fill" style="width:${v*100}%"></div></div></div>`
+    ).join('') || '—';
 
-    // party crosstab
-    const partyEl = document.getElementById('d-party');
     const party = (r.crosstabs && r.crosstabs.party) || {};
-    if (!Object.keys(party).length) {
-      partyEl.innerHTML = '<p style="color:var(--muted); font-size:13px;">—</p>';
-    } else {
-      partyEl.innerHTML = '<table style="font-size:13px;"><thead><tr><th>Party</th>' +
-        Object.keys(dist).map(k => `<th style="text-align:right; text-transform:none; letter-spacing:0;">${k}</th>`).join('') +
-        '</tr></thead><tbody>' +
-        Object.entries(party).map(([p, vals]) =>
-          '<tr><td><strong>'+p+'</strong></td>' +
-          Object.keys(dist).map(k => `<td style="text-align:right; font-feature-settings:'tnum';">${Math.round((vals[k]||0)*100)}%</td>`).join('') +
-          '</tr>'
-        ).join('') +
-        '</tbody></table>';
-    }
+    const parties = Object.keys(party).filter(p => party[p]);
+    const partyEl = document.getElementById('d-party');
+    if (!parties.length) partyEl.innerHTML = '<p style="color:var(--muted); font-size:13px;">—</p>';
+    else partyEl.innerHTML = '<table style="font-size:13px;"><thead><tr><th>Party</th>' +
+      Object.keys(dist).map(k => `<th style="text-align:right; text-transform:none; letter-spacing:0;">${esc(k)}</th>`).join('') +
+      '</tr></thead><tbody>' +
+      parties.map(p => '<tr><td><strong>'+p+'</strong></td>' +
+        Object.keys(dist).map(k => `<td style="text-align:right; font-feature-settings:'tnum';">${Math.round((party[p][k]||0)*100)}%</td>`).join('') +
+        '</tr>').join('') +
+      '</tbody></table>';
 
-    // quotes
-    const qEl = document.getElementById('d-quotes');
-    qEl.innerHTML = (r.quotes || []).map(q =>
-      `<div class="quote">
-         <div class="who">${q.who} &middot; <strong>${q.answer}</strong></div>
-         <div>${q.reason}</div>
-       </div>`
+    document.getElementById('d-quotes').innerHTML = (r.quotes || []).map(qq =>
+      `<div class="quote"><div class="who">${esc(qq.who)} · leaned <strong>${esc(qq.pick)}</strong></div></div>`
     ).join('') || '<p style="color:var(--muted); font-size:13px;">—</p>';
 
-    // calibration
     const c = r.calibration;
     document.getElementById('d-cal').innerHTML = c
-      ? `Topic class: <strong>${c.topic_class}</strong> &middot; expected TVD band: <strong>${c.expected_tvd_band[0].toFixed(2)}–${c.expected_tvd_band[1].toFixed(2)}</strong> &middot; confidence: <strong>${c.confidence}</strong>`
+      ? `Scale class: <strong>${c.scale_class}</strong> · expected TVD band: <strong>${c.expected_tvd_band[0].toFixed(2)}–${c.expected_tvd_band[1].toFixed(2)}</strong> · confidence: <strong>${c.confidence}</strong>`
       : '—';
 
     document.getElementById('drawer').style.display = 'block';
@@ -1550,45 +956,66 @@
   }
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeDrawer(); });
 
-  // ===== hash router for workspace sections =====
+  function downloadJSON() {
+    const r = window._drawerReport; if (!r) return;
+    const blob = new Blob([JSON.stringify(r, null, 2)], { type: 'application/json' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob); a.download = r.id + '.json'; a.click();
+    URL.revokeObjectURL(a.href);
+  }
+  function copyShare() {
+    const r = window._drawerReport; if (!r) return;
+    const top = Object.entries(r.headline||{}).sort((a,b)=>b[1]-a[1])[0] || ['', 0];
+    const txt = 'Plebify swarm — "' + r.question + '"\n'
+      + 'Top: ' + Math.round(top[1]*100) + '% ' + top[0] + '\n'
+      + '(' + (r.n_personas||48) + '-persona Llama 3.3 70B, calibrated)';
+    navigator.clipboard.writeText(txt);
+    const btn = event && event.target; if (btn) { const t = btn.textContent; btn.textContent = 'Copied'; setTimeout(()=>btn.textContent=t, 1200); }
+  }
+
+  // ===== hash router =====
   function showRoute() {
     const route = (location.hash.slice(1) || 'reports').split('?')[0];
     document.querySelectorAll('.workspace-section').forEach(s => s.classList.remove('active'));
     document.querySelectorAll('.side-nav a').forEach(a => a.classList.remove('active'));
     const target = document.getElementById('ws-' + route);
-    if (target) target.classList.add('active');
-    else document.getElementById('ws-reports').classList.add('active');
-    const navLink = document.querySelector('.side-nav a[data-route="' + route + '"]') || document.querySelector('.side-nav a[data-route="reports"]');
+    (target || document.getElementById('ws-reports')).classList.add('active');
+    const navLink = document.querySelector('.side-nav a[data-route="'+route+'"]') || document.querySelector('.side-nav a[data-route="reports"]');
     if (navLink) navLink.classList.add('active');
     if (route === 'usage') renderUsageChart();
     window.scrollTo(0, 0);
   }
   window.addEventListener('hashchange', showRoute);
-  showRoute();
 
-  // ===== usage bar chart (30 days, last bar = today) =====
+  // ===== usage chart from real report timestamps (last 30 days) =====
   function renderUsageChart() {
     const el = document.getElementById('usage-chart');
-    if (!el || el.dataset.rendered) return;
-    // Synthetic but plausible: ~30-65 calls/day with weekday/weekend pattern, growth toward today.
-    const today = new Date();
-    const counts = [
-      18, 24, 22, 14, 9,  31, 28,
-      36, 41, 38, 22, 12, 44, 39,
-      47, 52, 49, 31, 18, 58, 54,
-      61, 67, 58, 38, 22, 71, 66,
-      78, 81
-    ];
-    const max = Math.max(...counts);
+    if (!el) return;
+    const days = 30;
+    const counts = new Array(days).fill(0);
+    const today = new Date(); today.setHours(0,0,0,0);
+    reports.forEach(r => {
+      if (!r.day) return;
+      const d = new Date(r.day + 'T00:00:00');
+      const idx = days - 1 - Math.round((today - d) / 86400000);
+      if (idx >= 0 && idx < days) counts[idx]++;
+    });
+    const max = Math.max(1, ...counts);
     el.innerHTML = counts.map((c, i) => {
-      const day = new Date(today); day.setDate(today.getDate() - (counts.length - 1 - i));
-      const dateStr = day.toLocaleDateString('en-US', {month:'short', day:'numeric'});
-      const isToday = i === counts.length - 1;
-      const h = Math.round((c / max) * 150);
-      return '<div class="bar' + (isToday ? ' today' : '') + '" style="height:' + h + 'px;" data-label="' + dateStr + ': ' + c + ' calls"></div>';
+      const day = new Date(today); day.setDate(today.getDate() - (days - 1 - i));
+      const dateStr = day.toLocaleDateString('en-US', { month:'short', day:'numeric' });
+      const isToday = i === days - 1;
+      const h = Math.max(2, Math.round((c / max) * 150));
+      return '<div class="bar' + (isToday ? ' today' : '') + '" style="height:' + h + 'px;" data-label="' + dateStr + ': ' + c + ' report' + (c===1?'':'s') + '"></div>';
     }).join('');
     el.dataset.rendered = '1';
   }
+
+  // init
+  showRoute();
+  loadReports();
+  setInterval(loadReports, 20000);
+
 </script>
 
 </body>
