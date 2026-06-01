@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Developers — Plebify API & MCP</title>
+<meta name="description" content="Plebify API reference: POST /v1/survey for a full distribution with crosstabs, GET /v1/personas, GET /v1/calibration, plus a native MCP server.">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/plebify_p_icon_32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/plebify_p_icon_16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Plebify">
+<meta property="og:title" content="Developers — Plebify API & MCP">
+<meta property="og:description" content="Plebify API reference: POST /v1/survey for a full distribution with crosstabs, GET /v1/personas, GET /v1/calibration, plus a native MCP server.">
+<meta property="og:url" content="https://agiprolabs.github.io/plebify-demo/developers.html">
+<meta property="og:image" content="https://agiprolabs.github.io/plebify-demo/assets/og_image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Developers — Plebify API & MCP">
+<meta name="twitter:description" content="Plebify API reference: POST /v1/survey for a full distribution with crosstabs, GET /v1/personas, GET /v1/calibration, plus a native MCP server.">
+<meta name="twitter:image" content="https://agiprolabs.github.io/plebify-demo/assets/og_image.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="logo" aria-label="Plebify">
+      <img class="logo-light" src="assets/plebify_wordmark_v2.png" alt="Plebify">
+      <img class="logo-dark" src="assets/plebify_wordmark_v2_dark.png" alt="Plebify">
+    </a>
+    <div class="nav-links">
+      <a href="how-it-works.html" data-k="how">How it works</a>
+      <a href="developers.html" class="active" data-k="dev">Developers</a>
+      <a href="pricing.html" data-k="pricing">Pricing</a>
+      <a href="demo.html" data-k="demo">Demo</a>
+      <a href="dashboard.html" data-k="dash">Dashboard</a>
+      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg></button>
+      <a href="demo.html" class="nav-cta">Try the demo</a>
+    </div>
+  </div>
+</nav>
+<section class="page-intro">
+  <div class="container">
+    <div class="eyebrow">Developers</div>
+    <h1>Three endpoints. MCP-native.</h1>
+    <p class="lead">Plebify is API-first. A bearer token, a stable contract, deterministic results per <code>(question, audience, seed)</code> &mdash; or connect it as an MCP server and ask in plain language.</p>
+  </div>
+</section>
+<section class="section" id="api">
+  <div class="container">
+    <div class="eyebrow">API Reference</div>
+    <h2>Three endpoints. MCP-native. Stable contract.</h2>
+    <p class="lead">
+      Plebify is API-first. Authentication is a bearer token. Responses are deterministic per
+      <code>(question, audience, seed)</code> &mdash; rerun the same call, get the same distribution.
+      Or skip the SDK entirely: connect Plebify as an <strong>MCP server</strong> from Claude Code, Cursor,
+      or any MCP-aware client and ask in plain language.
+    </p>
+
+    <div class="api-endpoint">
+      <div class="api-line"><span class="api-method post">POST</span> <span class="api-path">/v1/survey</span></div>
+      <p class="api-desc">Run a question against the Persona Library. Returns headline distribution, crosstabs, and representative quotes.</p>
+      <div class="code-block">
+        <button class="copy" onclick="copyCode(this)">Copy</button>
+<pre>$ <span class="kw">curl</span> https://api.plebify.ai/v1/survey \
+    -H <span class="str">"Authorization: Bearer $PLEBIFY_KEY"</span> \
+    -H <span class="str">"Content-Type: application/json"</span> \
+    -d <span class="str">'{
+      "question":  "Should AI tutors be required in K-12 schools?",
+      "scale":     ["yes", "no"],
+      "audience":  "census",
+      "crosstabs": ["party", "age", "race", "education"],
+      "n_quotes":  3,
+      "seed":      42
+    }'</span>
+
+<span class="com"># Response (abridged):</span>
+{
+  <span class="str">"distribution"</span>:  { <span class="str">"yes"</span>: 0.32, <span class="str">"no"</span>: 0.68 },
+  <span class="str">"n_respondents"</span>: 217,
+  <span class="str">"latency_ms"</span>:    1840,
+  <span class="str">"crosstabs"</span>: {
+    <span class="str">"party"</span>: {
+      <span class="str">"Dem_or_lean"</span>: { <span class="str">"yes"</span>: 0.41, <span class="str">"no"</span>: 0.59 },
+      <span class="str">"Rep_or_lean"</span>: { <span class="str">"yes"</span>: 0.24, <span class="str">"no"</span>: 0.76 }
+    },
+    <span class="str">"age"</span>:        { <span class="str">"18-29"</span>: { ... }, <span class="str">"30-44"</span>: { ... }, ... }
+  },
+  <span class="str">"quotes"</span>: [
+    { <span class="str">"persona_id"</span>: <span class="str">"gen_z_..."</span>, <span class="str">"answer"</span>: <span class="str">"yes"</span>,
+      <span class="str">"reason"</span>: <span class="str">"Used right, AI tutoring could close gaps for kids in under-resourced schools."</span> }
+  ],
+  <span class="str">"calibration"</span>: {
+    <span class="str">"topic_class"</span>: <span class="str">"education_policy"</span>,
+    <span class="str">"expected_tvd_band"</span>: [0.10, 0.18],
+    <span class="str">"confidence"</span>: <span class="str">"medium-high"</span>
+  }
+}</pre>
+      </div>
+    </div>
+
+    <div class="api-endpoint">
+      <div class="api-line"><span class="api-method get">GET</span> <span class="api-path">/v1/personas</span></div>
+      <p class="api-desc">Browse / filter the Persona Library by any demographic field. Returns persona cards with <code>id</code>, <code>demographics</code>, <code>bio_short</code>, and <code>weight_census</code>. Useful for inspecting who is in the swarm before running a survey.</p>
+    </div>
+
+    <div class="api-endpoint">
+      <div class="api-line"><span class="api-method get">GET</span> <span class="api-path">/v1/calibration</span></div>
+      <p class="api-desc">Current Pew calibration state. Per-topic-class confidence bands. Use to set expectations before quoting.</p>
+      <div class="code-block">
+        <button class="copy" onclick="copyCode(this)">Copy</button>
+<pre>$ <span class="kw">curl</span> https://api.plebify.ai/v1/calibration -H <span class="str">"Authorization: Bearer $PLEBIFY_KEY"</span>
+
+{
+  <span class="str">"library_version"</span>:   <span class="str">"v3.3"</span>,
+  <span class="str">"n_personas"</span>:        217,
+  <span class="str">"corpus"</span>: {
+    <span class="str">"source"</span>:           <span class="str">"Pew Research American Trends Panel"</span>,
+    <span class="str">"n_topics"</span>:         42,
+    <span class="str">"last_refresh"</span>:     <span class="str">"2026-05-26T18:00:00Z"</span>
+  },
+  <span class="str">"by_topic_class"</span>: {
+    <span class="str">"social_issues"</span>:   { <span class="str">"mean_tvd"</span>: 0.14, <span class="str">"confidence"</span>: <span class="str">"high"</span> },
+    <span class="str">"economic"</span>:        { <span class="str">"mean_tvd"</span>: 0.18, <span class="str">"confidence"</span>: <span class="str">"high"</span> },
+    <span class="str">"foreign_policy"</span>:  { <span class="str">"mean_tvd"</span>: 0.31, <span class="str">"confidence"</span>: <span class="str">"medium"</span> },
+    <span class="str">"niche_tech"</span>:      { <span class="str">"mean_tvd"</span>: 0.36, <span class="str">"confidence"</span>: <span class="str">"low"</span> }
+  }
+}</pre>
+      </div>
+    </div>
+
+    <div class="mcp-callout" id="mcp">
+      <h3>Also runs as MCP</h3>
+      <p>Connect Plebify to Claude/Cursor/agents: <code>https://mcp.plebify.ai</code></p>
+      <pre><code>{"plebify": {"command": "npx", "args": ["@plebify/mcp"]}}</code></pre>
+    </div>
+
+    <h3 style="margin-top: 56px;">Auth, errors, rate limits</h3>
+    <table class="api-table">
+      <thead><tr><th>Concept</th><th>How it works</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Auth</strong></td><td><code>Authorization: Bearer &lt;your-key&gt;</code> header. Keys never expire; rotate via dashboard.</td></tr>
+        <tr><td><strong>Determinism</strong></td><td>Pass <code>seed</code> to lock the swarm sample. Same call &rarr; same distribution. Omit seed for fresh sampling.</td></tr>
+        <tr><td><strong>Rate limits</strong></td><td>Free 10 req/min, Pro 200 req/min, Scale custom. <code>429 Too Many Requests</code> with <code>Retry-After</code> header on overage.</td></tr>
+        <tr><td><strong>Latency</strong></td><td>P50 1.5s, P95 3s on Pro tier. ZIP-generated audiences add ~30s on first call (subsequent cached).</td></tr>
+        <tr><td><strong>Errors</strong></td><td><code>4xx</code> for invalid request, <code>503</code> if swarm capacity is saturated, never silent &mdash; every error has a code + suggested fix.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section><footer>
+  <div class="container">
+    <div>© 2026 Plebify Research, Inc.</div>
+    <div>
+      <a href="how-it-works.html">How it works</a>
+      <a href="developers.html">Developers</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="dashboard.html">Dashboard</a>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/site.js"></script>
+
+</body>
+</html>

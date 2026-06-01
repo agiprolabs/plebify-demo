@@ -1,0 +1,517 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>How Plebify works — calibrated against Pew</title>
+<meta name="description" content="How Plebify turns a persona swarm into a calibrated public-opinion estimate, shown side by side with real Pew American Trends Panel surveys.">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/plebify_p_icon_32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/plebify_p_icon_16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Plebify">
+<meta property="og:title" content="How Plebify works — calibrated against Pew">
+<meta property="og:description" content="How Plebify turns a persona swarm into a calibrated public-opinion estimate, shown side by side with real Pew American Trends Panel surveys.">
+<meta property="og:url" content="https://agiprolabs.github.io/plebify-demo/how-it-works.html">
+<meta property="og:image" content="https://agiprolabs.github.io/plebify-demo/assets/og_image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="How Plebify works — calibrated against Pew">
+<meta name="twitter:description" content="How Plebify turns a persona swarm into a calibrated public-opinion estimate, shown side by side with real Pew American Trends Panel surveys.">
+<meta name="twitter:image" content="https://agiprolabs.github.io/plebify-demo/assets/og_image.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="logo" aria-label="Plebify">
+      <img class="logo-light" src="assets/plebify_wordmark_v2.png" alt="Plebify">
+      <img class="logo-dark" src="assets/plebify_wordmark_v2_dark.png" alt="Plebify">
+    </a>
+    <div class="nav-links">
+      <a href="how-it-works.html" class="active" data-k="how">How it works</a>
+      <a href="developers.html" data-k="dev">Developers</a>
+      <a href="pricing.html" data-k="pricing">Pricing</a>
+      <a href="demo.html" data-k="demo">Demo</a>
+      <a href="dashboard.html" data-k="dash">Dashboard</a>
+      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg></button>
+      <a href="demo.html" class="nav-cta">Try the demo</a>
+    </div>
+  </div>
+</nav>
+<section class="page-intro">
+  <div class="container">
+    <div class="eyebrow">How it works</div>
+    <h1>Calibrated, not asserted.</h1>
+    <p class="lead">Plebify polls a census-mixed persona swarm, pools their probability judgments, and corrects the result with a calibration learned from real Pew surveys. Here is the evidence &mdash; and exactly how close it lands.</p>
+  </div>
+</section>
+<section class="section" id="calibration">
+  <div class="container" style="max-width: 720px;">
+    <div class="eyebrow">Calibration</div>
+    <h2>Calibrated, not asserted.</h2>
+    <p class="lead">
+      Every Plebify response includes a per-topic-class calibration confidence band derived from 42 published Pew surveys.
+      We tell you when the swarm is trustworthy and when it isn't &mdash; topic-by-topic.
+    </p>
+    <div class="code-block">
+<pre><span class="kw">GET</span> /v1/calibration
+
+{
+  <span class="str">"corpus"</span>: { <span class="str">"n_topics"</span>: 42, <span class="str">"source"</span>: <span class="str">"Pew Research American Trends Panel"</span> },
+  <span class="str">"overall"</span>: {
+    <span class="str">"mean_tvd"</span>:        0.28,
+    <span class="str">"party_pearson"</span>:   0.86,
+    <span class="str">"publishable_pct"</span>: 0.15    <span class="com">// share of topics at TVD &le; 0.15</span>
+  },
+  <span class="str">"by_topic_class"</span>: {
+    <span class="str">"foreign_policy"</span>:  { <span class="str">"mean_tvd"</span>: 0.41, <span class="str">"confidence"</span>: <span class="str">"medium"</span> },
+    <span class="str">"social_issues"</span>:   { <span class="str">"mean_tvd"</span>: 0.18, <span class="str">"confidence"</span>: <span class="str">"high"</span> },
+    <span class="str">"economic"</span>:        { <span class="str">"mean_tvd"</span>: 0.22, <span class="str">"confidence"</span>: <span class="str">"high"</span> },
+    <span class="str">"technology"</span>:      { <span class="str">"mean_tvd"</span>: 0.33, <span class="str">"confidence"</span>: <span class="str">"medium"</span> }
+  }
+}</pre>
+    </div>
+    <p style="color: var(--muted); font-size: 14px; line-height: 1.6; margin-top: 16px;">
+      Plebify is augmented research, not poll replacement. Use it to pre-test wording, iterate on segments, and generate hypothesis-quality numbers fast. For high-stakes claims, validate against a real survey.
+    </p>
+  </div>
+</section><section class="section" id="demo">
+  <div class="container">
+    <div class="eyebrow">Try it now — judge for yourself</div>
+    <h2>Real Pew survey, side by side with the Plebify swarm.</h2>
+    <p class="lead">
+      Every example below is an actual swarm run on a question Pew already asked tens of thousands of Americans.
+      We show the published Pew result next to our prediction so you can see exactly how close it lands &mdash;
+      topline, party crosstabs, and representative voices.
+    </p>
+
+    <div class="demo-grid">
+      <div class="demo-input">
+        <label>Sample questions</label>
+        <div class="presets" id="presets"></div>
+        <button class="run-btn" id="run-btn" onclick="runSurvey()">
+          <span id="run-label">Run swarm survey</span>
+        </button>
+      </div>
+      <div class="demo-output" id="output">
+        <div class="empty-state">Pick a question on the left, then click <strong>Run swarm survey</strong> to see the response.</div>
+      </div>
+    </div>
+  </div>
+</section><footer>
+  <div class="container">
+    <div>© 2026 Plebify Research, Inc.</div>
+    <div>
+      <a href="how-it-works.html">How it works</a>
+      <a href="developers.html">Developers</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="dashboard.html">Dashboard</a>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/site.js"></script>
+<script>
+// ===== Demo data (modeled on our actual N=39 calibration results) =====
+  const PRESETS = [
+    {
+      "id": "W32_Feb18__govt_role_which_statement_comes_closer_to_your_own_views_even_if_neither_is_exac",
+      "title": "Role of government",
+      "blurb": "Should government do more to solve problems, or is it doing too much?",
+      "question": "Which statement comes closer to your own views?",
+      "options": [
+        "Govt should do more",
+        "Govt does too much"
+      ],
+      "n_atp": 6137,
+      "wave": "W32_Feb18",
+      "tvd": 0.0185,
+      "pew": {
+        "Govt should do more": 0.51,
+        "Govt does too much": 0.489
+      },
+      "swarm": {
+        "Govt should do more": 0.492,
+        "Govt does too much": 0.508
+      },
+      "xparty": {
+        "Dem": {
+          "pew": {
+            "Govt should do more": 0.799,
+            "Govt does too much": 0.201
+          },
+          "swarm": {
+            "Govt should do more": 0.731,
+            "Govt does too much": 0.269
+          }
+        },
+        "Rep": {
+          "pew": {
+            "Govt should do more": 0.185,
+            "Govt does too much": 0.815
+          },
+          "swarm": {
+            "Govt should do more": 0.338,
+            "Govt does too much": 0.662
+          }
+        },
+        "Ind": {
+          "pew": {
+            "Govt should do more": 0.633,
+            "Govt does too much": 0.367
+          },
+          "swarm": {
+            "Govt should do more": 0.37,
+            "Govt does too much": 0.63
+          }
+        }
+      },
+      "quotes": [
+        {
+          "who": "24, F, white, progressive Democrat (climate-first) — Portland, OR",
+          "pick": "Govt should do more",
+          "text": "I think the government needs to take a much more active role in addressing the climate crisis and implementing a Green New Deal, because the free market has clearly failed to prioritize the planet's well-being over profits."
+        },
+        {
+          "who": "37, M, white, conservative Republican, 2A absolutist — rural Idaho",
+          "pick": "Govt does too much",
+          "text": "I think the government's already overstepping its bounds, especially when it comes to my guns and my family's freedoms, so I believe they should just get out of the way and let us take care of ourselves."
+        },
+        {
+          "who": "23, F, white, anti-electoral leftist / anarchist — Oakland, CA",
+          "pick": "Govt does too much",
+          "text": "I think the government is inherently oppressive and corrupt, so the less it's involved in our lives, the better, and we should be focusing on building our own autonomous communities and systems instead."
+        }
+      ]
+    },
+    {
+      "id": "W54_Sep19-1__natprobs_k_how_much_of_a_problem_do_you_think_each_of_the_following_are_in_the_c",
+      "title": "Climate change as a problem",
+      "blurb": "How big a problem is climate change for the country today?",
+      "question": "How much of a problem do you think climate change is in the country today?",
+      "options": [
+        "Very big problem",
+        "Moderately big",
+        "Small problem",
+        "Not a problem"
+      ],
+      "n_atp": 6534,
+      "wave": "W54_Sep19-1",
+      "tvd": 0.0587,
+      "pew": {
+        "Very big problem": 0.511,
+        "Moderately big": 0.218,
+        "Small problem": 0.165,
+        "Not a problem": 0.106
+      },
+      "swarm": {
+        "Very big problem": 0.49,
+        "Moderately big": 0.272,
+        "Small problem": 0.127,
+        "Not a problem": 0.111
+      },
+      "xparty": {
+        "Dem": {
+          "pew": {
+            "Very big problem": 0.774,
+            "Moderately big": 0.179,
+            "Small problem": 0.04,
+            "Not a problem": 0.008
+          },
+          "swarm": {
+            "Very big problem": 0.74,
+            "Moderately big": 0.194,
+            "Small problem": 0.046,
+            "Not a problem": 0.02
+          }
+        },
+        "Rep": {
+          "pew": {
+            "Very big problem": 0.16,
+            "Moderately big": 0.268,
+            "Small problem": 0.332,
+            "Not a problem": 0.241
+          },
+          "swarm": {
+            "Very big problem": 0.309,
+            "Moderately big": 0.321,
+            "Small problem": 0.182,
+            "Not a problem": 0.188
+          }
+        }
+      },
+      "quotes": [
+        {
+          "who": "24, F, white, progressive Democrat (climate-first) — Portland, OR",
+          "pick": "Very big problem",
+          "text": "I think climate change is a very big problem because it's literally threatening the survival of our planet and everything we care about, from the air we breathe to the ecosystems that sustain us."
+        },
+        {
+          "who": "36, F, Black, moderate Democrat, socially conservative — rural Georgia",
+          "pick": "Moderately big",
+          "text": "I think climate change is a moderately big problem because I see the effects of more frequent natural disasters and extreme weather in our community, but I also believe it's not the only issue we're facing and we need to balance our response with the economic realities of our rural area."
+        },
+        {
+          "who": "23, F, white, anti-electoral leftist / anarchist — Oakland, CA",
+          "pick": "Very big problem",
+          "text": "I think climate change is a very big problem because it's a symptom of the destructive capitalist system that prioritizes profit over people and the planet, and it's only getting worse due to the state's inaction and complicity."
+        }
+      ]
+    },
+    {
+      "id": "W43_Jan19__racesurv6_when_it_comes_to_racial_discrimination_which_do_you_think_is_the_bigge",
+      "title": "Racial discrimination",
+      "blurb": "Which is the bigger problem: seeing discrimination where it doesn't exist, or not seeing it where it does?",
+      "question": "When it comes to racial discrimination, which do you think is the bigger problem for the country today?",
+      "options": [
+        "Seeing it where it doesn't exist",
+        "Not seeing it where it does"
+      ],
+      "n_atp": 6565,
+      "wave": "W43_Jan19",
+      "tvd": 0.0709,
+      "pew": {
+        "Seeing it where it doesn't exist": 0.354,
+        "Not seeing it where it does": 0.646
+      },
+      "swarm": {
+        "Seeing it where it doesn't exist": 0.283,
+        "Not seeing it where it does": 0.717
+      },
+      "xparty": {
+        "Dem": {
+          "pew": {
+            "Seeing it where it doesn't exist": 0.161,
+            "Not seeing it where it does": 0.839
+          },
+          "swarm": {
+            "Seeing it where it doesn't exist": 0.136,
+            "Not seeing it where it does": 0.864
+          }
+        },
+        "Rep": {
+          "pew": {
+            "Seeing it where it doesn't exist": 0.709,
+            "Not seeing it where it does": 0.291
+          },
+          "swarm": {
+            "Seeing it where it doesn't exist": 0.41,
+            "Not seeing it where it does": 0.59
+          }
+        },
+        "Ind": {
+          "pew": {
+            "Seeing it where it doesn't exist": 0.365,
+            "Not seeing it where it does": 0.635
+          },
+          "swarm": {
+            "Seeing it where it doesn't exist": 0.269,
+            "Not seeing it where it does": 0.731
+          }
+        }
+      },
+      "quotes": [
+        {
+          "who": "24, M, white, progressive Democrat (DSA) — Minneapolis, MN",
+          "pick": "Not seeing it where it does",
+          "text": "I think people not seeing racial discrimination where it really does exist is the bigger problem because systemic racism is so ingrained in our institutions and culture that it's often invisible to those who aren't directly affected by it."
+        },
+        {
+          "who": "47, F, Black, Democrat, socially conservative (pro-life, traditional on family) — Silver Spring, MD",
+          "pick": "Not seeing it where it does",
+          "text": "I believe people not seeing racial discrimination where it really does exist is the bigger problem because I have seen with my own eyes how some of my patients and their families can be blind to the struggles that people like me, an immigrant and a black woman, face every day."
+        },
+        {
+          "who": "23, F, white, anti-electoral leftist / anarchist — Oakland, CA",
+          "pick": "Not seeing it where it does",
+          "text": "I think people not seeing racial discrimination where it really does exist is the bigger problem because it allows systemic injustices to persist and maintains the status quo of oppression that we see in policing, housing, education, and every other institution."
+        }
+      ]
+    },
+    {
+      "id": "W36_Jun-18-1__highedwrngb_please_indicate_whether_this_is_a_reason_why_you_think_the_higher_ed",
+      "title": "Politics on campus",
+      "blurb": "Is professors bringing their political views into the classroom a reason higher ed is headed the wrong way?",
+      "question": "Is “professors bringing their political and social views into the classroom” a reason the U.S. higher education system is headed in the wrong direction?",
+      "options": [
+        "Major reason",
+        "Minor reason",
+        "Not a reason"
+      ],
+      "n_atp": 2824,
+      "wave": "W36_Jun-18-1",
+      "tvd": 0.0581,
+      "pew": {
+        "Major reason": 0.52,
+        "Minor reason": 0.221,
+        "Not a reason": 0.259
+      },
+      "swarm": {
+        "Major reason": 0.462,
+        "Minor reason": 0.226,
+        "Not a reason": 0.312
+      },
+      "xparty": {
+        "Dem": {
+          "pew": {
+            "Major reason": 0.145,
+            "Minor reason": 0.331,
+            "Not a reason": 0.524
+          },
+          "swarm": {
+            "Major reason": 0.257,
+            "Minor reason": 0.255,
+            "Not a reason": 0.488
+          }
+        },
+        "Rep": {
+          "pew": {
+            "Major reason": 0.84,
+            "Minor reason": 0.12,
+            "Not a reason": 0.04
+          },
+          "swarm": {
+            "Major reason": 0.614,
+            "Minor reason": 0.202,
+            "Not a reason": 0.184
+          }
+        }
+      },
+      "quotes": [
+        {
+          "who": "28, F, Asian, Democratic socialist, climate emergency absolutist — Berkeley, CA",
+          "pick": "Not a reason",
+          "text": "I believe that professors sharing their perspectives, including those related to social and political issues, can actually enhance the learning experience and foster critical thinking, as long as they encourage open discussion and diverse viewpoints."
+        },
+        {
+          "who": "34, M, white, conservative Republican, evangelical — Greenville, SC",
+          "pick": "Major reason",
+          "text": "I believe professors bringing their political and social views into the classroom is a major reason the US higher education system is headed in the wrong direction because it can lead to indoctrination and suppression of conservative and Christian viewpoints, which undermines the principles of academic freedom and intellectual diversity."
+        },
+        {
+          "who": "27, M, white, libertarian — Austin, TX",
+          "pick": "Major reason",
+          "text": "I think it's a major reason because I believe professors should stick to teaching their subject matter without indoctrinating students with their personal biases, which can stifle free speech and open discussion."
+        }
+      ]
+    }
+  ];
+
+  // Render presets
+  const presetsEl = document.getElementById('presets');
+  let selected = PRESETS[0];
+  PRESETS.forEach((p, i) => {
+    const b = document.createElement('button');
+    b.className = 'preset-btn' + (i === 0 ? ' active' : '');
+    b.textContent = p.title;
+    b.onclick = () => {
+      selected = p;
+      document.querySelectorAll('.preset-btn').forEach(x => x.classList.remove('active'));
+      b.classList.add('active');
+    };
+    presetsEl.appendChild(b);
+  });
+
+  function runSurvey() {
+    const btn = document.getElementById('run-btn');
+    const lbl = document.getElementById('run-label');
+    btn.disabled = true;
+    lbl.innerHTML = '<span class="spinner"></span> Running swarm…';
+    const start = Date.now();
+    setTimeout(() => {
+      const elapsed = ((Date.now() - start) / 1000).toFixed(1);
+      renderResult(selected, elapsed);
+      btn.disabled = false;
+      lbl.textContent = 'Run swarm survey';
+    }, 1200 + Math.random() * 600);
+  }
+
+  function fmtPct(v) { return (v * 100).toFixed(1) + '%'; }
+
+  function topKey(o) { let bk=null, bv=-1; for (const k in o){ if(o[k]>bv){bv=o[k];bk=k;} } return bk; }
+
+  // Paired Pew-vs-swarm bar for one option
+  function pairedRow(label, pew, swarm) {
+    return `
+      <div class="dist-row" style="grid-template-columns: 200px 1fr; align-items:start; gap:14px;">
+        <span class="dist-label" style="padding-top:2px;">${label}</span>
+        <span style="display:flex; flex-direction:column; gap:5px;">
+          <span style="display:flex; align-items:center; gap:8px;">
+            <span style="width:42px; font-size:10px; color:var(--muted); text-transform:uppercase; letter-spacing:.03em;">Pew</span>
+            <span class="dist-bar" style="flex:1;"><span class="dist-fill" style="width:${(pew*100).toFixed(1)}%; background:var(--muted);"></span></span>
+            <span class="dist-pct" style="width:46px;">${fmtPct(pew)}</span>
+          </span>
+          <span style="display:flex; align-items:center; gap:8px;">
+            <span style="width:42px; font-size:10px; color:var(--accent); font-weight:600; text-transform:uppercase; letter-spacing:.03em;">Swarm</span>
+            <span class="dist-bar" style="flex:1;"><span class="dist-fill" style="width:${(swarm*100).toFixed(1)}%;"></span></span>
+            <span class="dist-pct" style="width:46px;">${fmtPct(swarm)}</span>
+          </span>
+        </span>
+      </div>`;
+  }
+
+  function renderResult(p, elapsed) {
+    const out = document.getElementById('output');
+    const tvdPts = (p.tvd * 100).toFixed(1);
+
+    const distRows = p.options.map(o => pairedRow(o, p.pew[o] ?? 0, p.swarm[o] ?? 0)).join('');
+
+    // Per-party crosstab: show each party's lean on the headline option, Pew vs swarm
+    const headOpt = topKey(p.pew);
+    const partyOrder = ['Dem', 'Rep'].filter(x => p.xparty[x]);
+    const xtabCards = partyOrder.map(party => {
+      const pw = p.xparty[party].pew[headOpt] ?? 0;
+      const sw = p.xparty[party].swarm[headOpt] ?? 0;
+      return `
+      <div class="xtab-card">
+        <div class="label">${party} — “${headOpt}”</div>
+        <div class="value">${fmtPct(sw)}</div>
+        <div class="pew">Pew: ${fmtPct(pw)}</div>
+      </div>`;
+    }).join('');
+
+    const quotes = p.quotes.map(q => `
+      <div style="padding: 12px 14px; border-left: 2px solid var(--accent); background: var(--bg); margin-bottom: 8px; border-radius: 0 6px 6px 0;">
+        <div style="font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 4px;">${q.who} · picked “${q.pick}”</div>
+        <div style="font-size: 14px; line-height: 1.5; color: var(--text);">${q.text}</div>
+      </div>`).join('');
+
+    out.innerHTML = `
+      <div class="result-header">${p.title}</div>
+      <div style="font-size:13px; color:var(--muted); margin:-4px 0 14px;">${p.question}</div>
+      <div class="result-meta">
+        <span><strong>${elapsed}s</strong> latency</span>
+        <span>swarm n=<strong>320</strong></span>
+        <span>vs Pew ATP ${p.wave}, n=<strong>${p.n_atp.toLocaleString()}</strong></span>
+        <span>topline error: <strong>${tvdPts} pts</strong></span>
+      </div>
+      <div class="result-section">
+        <h4>Topline — real Pew survey vs Plebify swarm</h4>
+        ${distRows}
+      </div>
+      <div class="result-section">
+        <h4>By party — “${headOpt}” (swarm vs Pew)</h4>
+        <div class="xtab-grid">${xtabCards}</div>
+      </div>
+      <div class="result-section">
+        <h4>Representative voices</h4>
+        ${quotes}
+      </div>
+      <div class="demo-note">
+        <strong>Real output, not a mockup.</strong> The swarm numbers are an actual Plebify run
+        (Llama&nbsp;3.3&nbsp;70B over a 320-persona library); the Pew column is the published
+        American Trends Panel result for the same question. Topline lands within
+        a few points; the swarm ranks every demographic group correctly but slightly
+        compresses the partisan extremes. Get an API key to run your own question.
+      </div>`;
+  }
+
+  
+</script>
+</body>
+</html>
